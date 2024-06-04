@@ -6,6 +6,10 @@
 //
 
 import UIKit
+import Firebase
+import FirebaseFirestore
+import FirebaseStorage
+import FirebaseCore
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -33,4 +37,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
 }
+
 
