@@ -22,7 +22,7 @@ class MypageViewController: UIViewController {
     let usageDetailsContainer = UIView()
     let enjoyButton = UIButton()
     let logoutButton = UIButton()
-    let loginButton = UIButton() // 추가: 로그인 버튼
+    let loginButton = UIButton()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,7 +40,6 @@ class MypageViewController: UIViewController {
     }
     
     func setupNavigationBar() {
-        // 네비게이션 바 설정
         self.navigationController?.navigationBar.barTintColor = UIColor(red: 148/255, green: 206/255, blue: 204/255, alpha: 1.0)
         self.navigationItem.title = ""
         

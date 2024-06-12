@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2BA04A382C1A0D51008A774E /* PurchaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA04A372C1A0D51008A774E /* PurchaseViewController.swift */; };
+		2BA04A3A2C1A21E5008A774E /* SelectedStationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA04A392C1A21E5008A774E /* SelectedStationViewController.swift */; };
 		2BA5D85E2C0ECF4C008EC52A /* BikeStationAnnotationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA5D85D2C0ECF4C008EC52A /* BikeStationAnnotationViewController.swift */; };
 		2BA5D8602C0ECF7B008EC52A /* BikeStationAnnotationViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA5D85F2C0ECF7B008EC52A /* BikeStationAnnotationViewViewController.swift */; };
 		2BA5D8622C0ED6C8008EC52A /* BikeStationInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA5D8612C0ED6C8008EC52A /* BikeStationInfoViewController.swift */; };
@@ -37,6 +39,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2BA04A372C1A0D51008A774E /* PurchaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseViewController.swift; sourceTree = "<group>"; };
+		2BA04A392C1A21E5008A774E /* SelectedStationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedStationViewController.swift; sourceTree = "<group>"; };
 		2BA5D85D2C0ECF4C008EC52A /* BikeStationAnnotationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeStationAnnotationViewController.swift; sourceTree = "<group>"; };
 		2BA5D85F2C0ECF7B008EC52A /* BikeStationAnnotationViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeStationAnnotationViewViewController.swift; sourceTree = "<group>"; };
 		2BA5D8612C0ED6C8008EC52A /* BikeStationInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeStationInfoViewController.swift; sourceTree = "<group>"; };
@@ -126,6 +130,8 @@
 				2BA5D85F2C0ECF7B008EC52A /* BikeStationAnnotationViewViewController.swift */,
 				2BA5D8612C0ED6C8008EC52A /* BikeStationInfoViewController.swift */,
 				2BCF26F72C193CD2006A6DB7 /* CheckUserViewController.swift */,
+				2BA04A372C1A0D51008A774E /* PurchaseViewController.swift */,
+				2BA04A392C1A21E5008A774E /* SelectedStationViewController.swift */,
 			);
 			path = "iosProgramming-Project-2171217-juwonhee";
 			sourceTree = "<group>";
@@ -221,8 +227,10 @@
 				2BA5D8602C0ECF7B008EC52A /* BikeStationAnnotationViewViewController.swift in Sources */,
 				2BD8F7662BF7D62A001C8F9E /* BikeStationLoader.swift in Sources */,
 				2BA7EB192C0BA28D003135EA /* MypageViewController.swift in Sources */,
+				2BA04A382C1A0D51008A774E /* PurchaseViewController.swift in Sources */,
 				2BA5D85E2C0ECF4C008EC52A /* BikeStationAnnotationViewController.swift in Sources */,
 				2BD8F7432BF7A2B7001C8F9E /* AppDelegate.swift in Sources */,
+				2BA04A3A2C1A21E5008A774E /* SelectedStationViewController.swift in Sources */,
 				2BA7EB1B2C0BA2D5003135EA /* LoginViewController.swift in Sources */,
 				2BD8F75E2BF7C155001C8F9E /* bikeData.json in Sources */,
 				2BD8F7682BF7DD05001C8F9E /* Location.swift in Sources */,

@@ -33,23 +33,88 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5262" y="11"/>
+            <point key="canvasLocation" x="6937" y="823"/>
         </scene>
-        <!--이용권 구매-->
+        <!--Purchase View Controller-->
         <scene sceneID="yAj-Bt-TF2">
             <objects>
-                <viewController id="IYv-N6-CbN" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PurchaseViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="IYv-N6-CbN" customClass="PurchaseViewController" customModule="iosProgramming_Project_2171217_juwonhee" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Xn9-sP-pRO">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="luq-Uw-3k7">
+                                <rect key="frame" x="13" y="301" width="367" height="162"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            </pickerView>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Cvu-Z5-vdS">
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <segments>
+                                    <segment title="First"/>
+                                    <segment title="Second"/>
+                                </segments>
+                            </segmentedControl>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="A2b-MT-EGq">
+                                <rect key="frame" x="0.0" y="734" width="393" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemYellowColor"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="다음으로">
+                                    <color key="baseForegroundColor" systemColor="labelColor"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <segue destination="RXS-3L-uDn" kind="show" identifier="SelectedStationViewController" id="yHF-l5-Igd"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="5Z1-Rd-FZ0"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="이용권 구매" image="tray" catalog="system" id="idd-Wa-hzL"/>
+                    <navigationItem key="navigationItem" id="F55-jt-Ave"/>
+                    <connections>
+                        <outlet property="nextButton" destination="A2b-MT-EGq" id="k2a-Fq-jq2"/>
+                        <outlet property="rentalTime" destination="luq-Uw-3k7" id="j8O-Dr-rUs"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Bwx-bk-Tuc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3524" y="22"/>
+            <point key="canvasLocation" x="4449.6183206106871" y="21.83098591549296"/>
+        </scene>
+        <!--Selected Station View Controller-->
+        <scene sceneID="40s-tS-NI0">
+            <objects>
+                <viewController storyboardIdentifier="SelectedStationViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="RXS-3L-uDn" customClass="SelectedStationViewController" customModule="iosProgramming_Project_2171217_juwonhee" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="87e-ee-1UF">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GGF-2d-C1E">
+                                <rect key="frame" x="146" y="263" width="102" height="46"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="출발지 지도"/>
+                                <connections>
+                                    <segue destination="BYZ-38-t0r" kind="show" id="Lx3-w5-bRR"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cir-vM-FdY">
+                                <rect key="frame" x="146" y="344" width="102" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="도착지 지도"/>
+                                <connections>
+                                    <segue destination="BYZ-38-t0r" kind="show" id="kh2-az-r4i"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="hrG-Rx-v73"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="V9x-SY-wxx"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="C8h-zw-FHl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5226.7175572519081" y="20.422535211267608"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="mu7-Is-Np3">
@@ -63,7 +128,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="7kt-2p-mvh" kind="relationship" relationship="viewControllers" id="B6U-mk-ceQ"/>
-                        <segue destination="IYv-N6-CbN" kind="relationship" relationship="viewControllers" id="D22-ki-bdp"/>
+                        <segue destination="N8t-lq-s7d" kind="relationship" relationship="viewControllers" id="D22-ki-bdp"/>
                         <segue destination="Z22-rl-IDI" kind="relationship" relationship="viewControllers" id="Ndo-o0-z6c"/>
                     </connections>
                 </tabBarController>
@@ -156,14 +221,42 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tCA-KA-Ae9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4521" y="11"/>
+            <point key="canvasLocation" x="7327" y="-23"/>
+        </scene>
+        <!--이용권 구매-->
+        <scene sceneID="XOQ-GN-Ce1">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="N8t-lq-s7d" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="이용권 구매" image="tray" catalog="system" id="idd-Wa-hzL"/>
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="beQ-SY-zyU">
+                        <rect key="frame" x="0.0" y="59" width="393" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="IYv-N6-CbN" kind="relationship" relationship="rootViewController" id="Aof-nu-Hd0"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="qfI-NP-XoL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3522.9007633587785" y="21.83098591549296"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="Lx3-w5-bRR"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="map" catalog="system" width="128" height="112"/>
         <image name="tray" catalog="system" width="128" height="88"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemYellowColor">
+            <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
