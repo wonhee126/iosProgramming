@@ -4,7 +4,6 @@
 //
 //  Created by juwonhee on 6/2/24.
 //
-
 import UIKit
 import FirebaseAuth
 import FirebaseFirestore
@@ -29,11 +28,15 @@ class MypageViewController: UIViewController {
         super.viewDidLoad()
         setupNavigationBar()
         
-        // 사용자 정보 가져오기
-        fetchUserInfo()
-        
-        // 로그인 버튼 설정
-        setupLoginButton()
+        // 로그인 여부에 따라 UI 설정
+        if Auth.auth().currentUser != nil {
+            // 로그인된 상태
+            setupUI()
+            fetchUserInfo()
+        } else {
+            // 로그인되지 않은 상태
+            setupLoginButton()
+        }
     }
     
     func setupNavigationBar() {
@@ -144,6 +147,7 @@ class MypageViewController: UIViewController {
         logoutButton.setTitleColor(.black, for: .normal)
         logoutButton.layer.cornerRadius = 5
         logoutButton.translatesAutoresizingMaskIntoConstraints = false
+        logoutButton.addTarget(self, action: #selector(logoutButtonTapped), for: .touchUpInside) // 로그아웃 버튼 액션 추가
         view.addSubview(logoutButton)
         
         // 제약 조건
@@ -184,9 +188,10 @@ class MypageViewController: UIViewController {
             logoutButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
             logoutButton.heightAnchor.constraint(equalToConstant: 50)
         ])
+        
+
     }
 
-    
     func createUsageRow(labelText: String, valueLabel: UILabel) -> UIStackView {
         let rowStack = UIStackView()
         rowStack.axis = .horizontal
@@ -208,12 +213,13 @@ class MypageViewController: UIViewController {
     }
     
     func fetchUserInfo() {
-        guard let user = Auth.auth().currentUser else {
-            print("No user is logged in")
-            // 사용자가 로그인되지 않은 경우 로그인 버튼만 보이도록 설정
-            setupLoginButton()
-            return
-        }
+//        guard let user = Auth.auth().currentUser else {
+//            print("No user is logged in")
+//            // 사용자가 로그인되지 않은 경우 로그인 버튼만 보이도록 설정
+//            setupLoginButton()
+//            return
+//        }
+        let user = Auth.auth().currentUser!
         let email = user.email ?? "Unknown Email"
         let uid = user.uid
         
@@ -234,9 +240,9 @@ class MypageViewController: UIViewController {
     
     func updateUI(email: String, nickname: String) {
         DispatchQueue.main.async {
-            self.setupUI() // 사용자 정보를 가져온 후 UI 설정을 다시 호출하여 UI 업데이트
             self.nicknameLabel.text = "\(nickname)님"
             self.emailLabel.text = "\(email)"
+
         }
     }
 
@@ -279,7 +285,7 @@ class MypageViewController: UIViewController {
     }
     
     @objc func loginButtonTapped() {
-            navigateToLoginScreen()
-        }
-    
+        navigateToLoginScreen()
+    }
 }
+

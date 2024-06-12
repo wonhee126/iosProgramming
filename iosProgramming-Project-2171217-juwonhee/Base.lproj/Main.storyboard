@@ -54,7 +54,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="mu7-Is-Np3">
             <objects>
-                <tabBarController automaticallyAdjustsScrollViewInsets="NO" id="6Ly-9l-031" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="MainTabBarController" automaticallyAdjustsScrollViewInsets="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" id="6Ly-9l-031" sceneMemberID="viewController">
                     <toolbarItems/>
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Dmn-X3-4ca">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
@@ -101,7 +101,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ENc-Qi-YjU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2228" y="723"/>
+            <point key="canvasLocation" x="1830" y="723"/>
         </scene>
         <!--Signup View Controller-->
         <scene sceneID="feF-6v-lW1">
@@ -113,10 +113,11 @@
                         <viewLayoutGuide key="safeArea" id="cFC-7h-yKH"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
+                    <navigationItem key="navigationItem" id="PYp-u5-9Rf"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Cdv-mQ-sHT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3024" y="723"/>
+            <point key="canvasLocation" x="2538" y="723"/>
         </scene>
         <!--내 정보-->
         <scene sceneID="BU6-tn-dn4">

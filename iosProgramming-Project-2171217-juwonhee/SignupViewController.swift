@@ -164,17 +164,18 @@ class SignupViewController: UIViewController {
                     print("Error adding document: \(error.localizedDescription)")
                 } else {
                     print("Document added successfully")
-                    self.navigateToMapView()
+                    self.navigateToLoginScreen()
                 }
             }
         }
     }
     
-    func navigateToMapView() {
-            if let mapViewController = storyboard?.instantiateViewController(withIdentifier: "MapViewController") {
-                navigationController?.pushViewController(mapViewController, animated: true)
-            }
+    func navigateToLoginScreen() {
+        if let loginViewController = storyboard?.instantiateViewController(withIdentifier: "LoginViewController") {
+            loginViewController.modalPresentationStyle = .fullScreen
+            present(loginViewController, animated: true, completion: nil)
         }
+    }
 }
 
 

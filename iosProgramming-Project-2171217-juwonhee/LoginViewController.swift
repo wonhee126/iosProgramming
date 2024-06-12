@@ -11,7 +11,6 @@ class LoginViewController: UIViewController {
         setupCustomViews()
     }
     
-    
     func setupCustomViews() {
         let logoImageView = UIImageView()
         logoImageView.image = UIImage(named: "EcoBike")
@@ -115,7 +114,7 @@ class LoginViewController: UIViewController {
         ])
     }
     
-    @IBAction func loginButtonTapped(_ sender: UIButton) {
+    @objc func loginButtonTapped(_ sender: UIButton) {
         guard let email = emailTextField.text, let password = passwordTextField.text else {
             print("Email and Password are required")
             return
@@ -129,16 +128,21 @@ class LoginViewController: UIViewController {
                 self.present(alert, animated: true, completion: nil)
             } else {
                 print("User logged in successfully")
-                self.navigationController?.popViewController(animated: true)
+//                self.dismiss(animated: true, completion: nil)
+                let mainTabBarController = self.storyboard?.instantiateViewController(withIdentifier: "MainTabBarController") as! UITabBarController
+                mainTabBarController.modalPresentationStyle = .fullScreen
+                self.present(mainTabBarController, animated: true, completion: nil)
             }
         }
     }
 
     @objc func signUpButtonTapped(_ sender: UIButton) {
         if let signupViewController = self.storyboard?.instantiateViewController(withIdentifier: "SignupViewController") as? SignupViewController {
-            self.navigationController?.pushViewController(signupViewController, animated: true)
+            signupViewController.modalPresentationStyle = .fullScreen
+            self.present(signupViewController, animated: true, completion: nil)
         } else {
             print("SignupViewController not found")
         }
     }
 }
+
