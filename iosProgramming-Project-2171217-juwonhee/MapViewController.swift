@@ -15,6 +15,56 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        setupNavigationBar()
+        setupMapView()
+        setupInfoView()
+        checkLocationAuthorizationStatus()
+        loadBikeStations()
+    }
+    
+    func setupNavigationBar() {
+        // 네비게이션 바 설정
+        self.navigationController?.navigationBar.barTintColor = UIColor(red: 148/255, green: 206/255, blue: 204/255, alpha: 1.0)
+        self.navigationItem.title = ""
+        
+        let titleView = UIView()
+        titleView.translatesAutoresizingMaskIntoConstraints = false
+        
+        let logoImage = UIImage(named: "NavigatorIcon")
+        let imageView = UIImageView(image: logoImage)
+        imageView.contentMode = .scaleAspectFit
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        let titleLabel = UILabel()
+        titleLabel.text = "EcoBike"
+        titleLabel.font = UIFont.systemFont(ofSize: 10)
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        let stackView = UIStackView(arrangedSubviews: [imageView, titleLabel])
+        stackView.axis = .vertical
+        stackView.alignment = .center
+        stackView.spacing = 2
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        titleView.addSubview(stackView)
+        
+        NSLayoutConstraint.activate([
+            stackView.centerXAnchor.constraint(equalTo: titleView.centerXAnchor),
+            stackView.centerYAnchor.constraint(equalTo: titleView.centerYAnchor),
+            
+            imageView.widthAnchor.constraint(equalToConstant: 40),
+            imageView.heightAnchor.constraint(equalToConstant: 40)
+        ])
+        
+        self.navigationItem.titleView = titleView
+        
+//        let rightButton = UIBarButtonItem(title: "즐겨찾기", style: .plain, target: nil, action: nil)
+//        rightButton.tintColor = .black
+//        self.navigationItem.rightBarButtonItem = rightButton
+    }
+
+
+    func setupMapView() {
         mapView.delegate = self
         
         // Setup map view
@@ -25,36 +75,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
-        
-        // Check location authorization status
-        checkLocationAuthorizationStatus()
-        
-        // Load data from BikeStationLoader
-        BikeStationLoader.loadMultipleBikeStations { [weak self] bikeStations in
-            guard let self = self, let bikeStations = bikeStations else {
-                print("Failed to load bike data.")
-                return
-            }
-
-            DispatchQueue.main.async {
-                for station in bikeStations {
-                    let availableBikes = Int(station.parkingBikeTotCnt) ?? 0
-                    let annotation = BikeStationAnnotation(
-                        title: station.stationName,
-                        subtitle: station.stationId, // stationId를 subtitle로 사용
-                        coordinate: CLLocationCoordinate2D(latitude: station.stationLatitude,
-                                                           longitude: station.stationLongitude),
-                        availableBikes: availableBikes
-                    )
-                    self.mapView.addAnnotation(annotation)
-                }
-            }
-        }
-
-        centerMapOnLocation(location: initialCoordinates)
-        
-        // Setup and add info view
-        setupInfoView()
     }
     
     func setupInfoView() {
@@ -123,6 +143,29 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
     func centerMapOnLocation(location: CLLocationCoordinate2D) {
         let coordinateRegion = MKCoordinateRegion(center: location, latitudinalMeters: regionRadius, longitudinalMeters: regionRadius)
         mapView.setRegion(coordinateRegion, animated: true)
+    }
+    
+    func loadBikeStations() {
+        BikeStationLoader.loadMultipleBikeStations { [weak self] bikeStations in
+            guard let self = self, let bikeStations = bikeStations else {
+                print("Failed to load bike data.")
+                return
+            }
+
+            DispatchQueue.main.async {
+                for station in bikeStations {
+                    let availableBikes = Int(station.parkingBikeTotCnt) ?? 0
+                    let annotation = BikeStationAnnotation(
+                        title: station.stationName,
+                        subtitle: station.stationId, // stationId를 subtitle로 사용
+                        coordinate: CLLocationCoordinate2D(latitude: station.stationLatitude,
+                                                           longitude: station.stationLongitude),
+                        availableBikes: availableBikes
+                    )
+                    self.mapView.addAnnotation(annotation)
+                }
+            }
+        }
     }
 }
 

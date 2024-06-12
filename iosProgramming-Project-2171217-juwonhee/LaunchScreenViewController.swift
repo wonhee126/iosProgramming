@@ -17,7 +17,7 @@ class LaunchScreenViewController: UIViewController {
         label1.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
         label1.font = UIFont(name: "Jua-Regular", size: 30)
         label1.textAlignment = .center
-        label1.text = "자전구리"
+        label1.text = "EcoBike"
         self.view.addSubview(label1)
         
         NSLayoutConstraint.activate([

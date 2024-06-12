@@ -8,67 +8,173 @@
 
 
 import UIKit
+import FirebaseAuth
 import FirebaseFirestore
 
 class SignupViewController: UIViewController {
     
-
-//    @IBOutlet weak var emailTextField: UITextField!
-//    @IBOutlet weak var passwordTextField: UITextField!
-    
-    @IBOutlet weak var passwordTextField: UITextField!
-    @IBOutlet weak var emailTextField: UITextField!
-
-    
+    var nicknameTextField: UITextField!
+    var emailTextField: UITextField!
+    var passwordTextField: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupCustomViews()
     }
     
-//    @IBAction func signupButtonTapped(_ sender: UIButton) {
-//    @IBAction func signupButtonTapped(_ sender: UIButton) {
-    
-    
-    @IBAction func signupButtonTapped(_ sender: UIButton) {
-    
-//    guard let name = nameTextField.text,
-//              let email = emailTextField.text,
-//              let password = passwordTextField.text else {
-//            return
-//        }
+    func setupCustomViews() {
+        let logoImageView = UIImageView()
+        logoImageView.image = UIImage(named: "EcoBike")
+        logoImageView.contentMode = .scaleAspectFit
+        self.view.addSubview(logoImageView)
+        logoImageView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            logoImageView.topAnchor.constraint(equalTo: self.view.safeAreaLayoutGuide.topAnchor, constant: 50),
+            logoImageView.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            logoImageView.widthAnchor.constraint(equalToConstant: 100),
+            logoImageView.heightAnchor.constraint(equalToConstant: 100)
+        ])
         
-        guard let email = emailTextField.text,
-              let password = passwordTextField.text else {
+        let titleLabel = UILabel()
+        titleLabel.text = "EcoBike"
+        titleLabel.font = UIFont.boldSystemFont(ofSize: 24)
+        titleLabel.textAlignment = .center
+        self.view.addSubview(titleLabel)
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            titleLabel.topAnchor.constraint(equalTo: logoImageView.bottomAnchor, constant: 20),
+            titleLabel.centerXAnchor.constraint(equalTo: self.view.centerXAnchor)
+        ])
+        
+        let nicknameContainerView = createContainerView()
+        self.view.addSubview(nicknameContainerView)
+        NSLayoutConstraint.activate([
+            nicknameContainerView.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 40),
+            nicknameContainerView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
+            nicknameContainerView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
+            nicknameContainerView.heightAnchor.constraint(equalToConstant: 50)
+        ])
+        
+        nicknameTextField = createTextField(placeholder: "닉네임")
+        nicknameContainerView.addSubview(nicknameTextField)
+        NSLayoutConstraint.activate([
+            nicknameTextField.topAnchor.constraint(equalTo: nicknameContainerView.topAnchor),
+            nicknameTextField.leadingAnchor.constraint(equalTo: nicknameContainerView.leadingAnchor, constant: 10),
+            nicknameTextField.trailingAnchor.constraint(equalTo: nicknameContainerView.trailingAnchor, constant: -10),
+            nicknameTextField.bottomAnchor.constraint(equalTo: nicknameContainerView.bottomAnchor)
+        ])
+        
+        let emailContainerView = createContainerView()
+        self.view.addSubview(emailContainerView)
+        NSLayoutConstraint.activate([
+            emailContainerView.topAnchor.constraint(equalTo: nicknameContainerView.bottomAnchor, constant: 20),
+            emailContainerView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
+            emailContainerView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
+            emailContainerView.heightAnchor.constraint(equalToConstant: 50)
+        ])
+        
+        emailTextField = createTextField(placeholder: "이메일")
+        emailContainerView.addSubview(emailTextField)
+        NSLayoutConstraint.activate([
+            emailTextField.topAnchor.constraint(equalTo: emailContainerView.topAnchor),
+            emailTextField.leadingAnchor.constraint(equalTo: emailContainerView.leadingAnchor, constant: 10),
+            emailTextField.trailingAnchor.constraint(equalTo: emailContainerView.trailingAnchor, constant: -10),
+            emailTextField.bottomAnchor.constraint(equalTo: emailContainerView.bottomAnchor)
+        ])
+        
+        let passwordContainerView = createContainerView()
+        self.view.addSubview(passwordContainerView)
+        NSLayoutConstraint.activate([
+            passwordContainerView.topAnchor.constraint(equalTo: emailContainerView.bottomAnchor, constant: 20),
+            passwordContainerView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor, constant: 20),
+            passwordContainerView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor, constant: -20),
+            passwordContainerView.heightAnchor.constraint(equalToConstant: 50)
+        ])
+        
+        passwordTextField = createTextField(placeholder: "비밀번호")
+        passwordTextField.isSecureTextEntry = true
+        passwordContainerView.addSubview(passwordTextField)
+        NSLayoutConstraint.activate([
+            passwordTextField.topAnchor.constraint(equalTo: passwordContainerView.topAnchor),
+            passwordTextField.leadingAnchor.constraint(equalTo: passwordContainerView.leadingAnchor, constant: 10),
+            passwordTextField.trailingAnchor.constraint(equalTo: passwordContainerView.trailingAnchor, constant: -10),
+            passwordTextField.bottomAnchor.constraint(equalTo: passwordContainerView.bottomAnchor)
+        ])
+        
+        let signUpButton = UIButton(type: .system)
+        signUpButton.setTitle("회원가입", for: .normal)
+        signUpButton.backgroundColor = UIColor.systemTeal
+        signUpButton.setTitleColor(.black, for: .normal)
+        signUpButton.layer.cornerRadius = 5
+        signUpButton.addTarget(self, action: #selector(signupButtonTapped), for: .touchUpInside)
+        self.view.addSubview(signUpButton)
+        signUpButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            signUpButton.topAnchor.constraint(equalTo: passwordContainerView.bottomAnchor, constant: 40),
+            signUpButton.centerXAnchor.constraint(equalTo: self.view.centerXAnchor),
+            signUpButton.widthAnchor.constraint(equalToConstant: 150),
+            signUpButton.heightAnchor.constraint(equalToConstant: 50)
+        ])
+    }
+    
+    func createContainerView() -> UIView {
+        let containerView = UIView()
+        containerView.layer.borderWidth = 1
+        containerView.layer.borderColor = UIColor.systemTeal.cgColor
+        containerView.layer.cornerRadius = 5
+        containerView.translatesAutoresizingMaskIntoConstraints = false
+        return containerView
+    }
+    
+    func createTextField(placeholder: String) -> UITextField {
+        let textField = UITextField()
+        textField.placeholder = placeholder
+        textField.translatesAutoresizingMaskIntoConstraints = false
+        return textField
+    }
+    
+    @objc func signupButtonTapped() {
+        guard let nickname = nicknameTextField.text, !nickname.isEmpty,
+              let email = emailTextField.text, !email.isEmpty,
+              let password = passwordTextField.text, !password.isEmpty else {
+            print("모든 필드를 입력해야 합니다.")
+            return
+        }
+        
+        // Firebase Authentication을 사용하여 계정 생성
+        Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
+            if let error = error {
+                print("회원가입 실패: \(error.localizedDescription)")
                 return
             }
-        
-        
-        // Firestore에 사용자 데이터 저장
-        let db = Firestore.firestore()
-        let userRef = db.collection("Users").document() // 새로운 문서 생성
-                userRef.setData([
-//            "name": name,
-            "email": email,
-            "password": password
-            // 비밀번호는 보안상 절대 저장해서는 안 됩니다.
-            // 대신에 Firebase Authentication으로 인증된 사용자의 UID를 사용하여 연결할 수 있습니다.
-        ]) { error in
-            if let error = error {
-                print("Error adding document: \(error.localizedDescription)")
-            } else {
-                print("Document added successfully")
-                self.navigateToLogin()
-                // 회원가입 성공 후 다음 화면으로 이동하거나 로직을 추가할 수 있습니다.
+            
+            guard let user = authResult?.user else {
+                print("회원가입 실패: 사용자 정보를 가져올 수 없습니다.")
+                return
+            }
+            
+            // Firestore에 사용자 정보 저장
+            let db = Firestore.firestore()
+            let userRef = db.collection("Users").document(user.uid)
+            userRef.setData([
+                "nickname": nickname,
+                "email": email
+            ]) { error in
+                if let error = error {
+                    print("Error adding document: \(error.localizedDescription)")
+                } else {
+                    print("Document added successfully")
+                    self.navigateToMapView()
+                }
             }
         }
     }
     
-    func navigateToLogin() {
-            if let loginViewController = storyboard?.instantiateViewController(withIdentifier: "LoginViewController") {
-                navigationController?.pushViewController(loginViewController, animated: true)
+    func navigateToMapView() {
+            if let mapViewController = storyboard?.instantiateViewController(withIdentifier: "MapViewController") {
+                navigationController?.pushViewController(mapViewController, animated: true)
             }
         }
-    
 }
 
 

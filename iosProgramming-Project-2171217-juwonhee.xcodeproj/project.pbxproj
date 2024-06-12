@@ -22,6 +22,7 @@
 		2BA7EB2D2C0BA785003135EA /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 2BA7EB2C2C0BA785003135EA /* FirebaseStorage */; };
 		2BA7EB2F2C0BAEA4003135EA /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 2BA7EB2E2C0BAEA4003135EA /* FirebaseAuth */; };
 		2BA7EB312C0BB624003135EA /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BA7EB302C0BB624003135EA /* SignupViewController.swift */; };
+		2BCF26F82C193CD2006A6DB7 /* CheckUserViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BCF26F72C193CD2006A6DB7 /* CheckUserViewController.swift */; };
 		2BD8F7432BF7A2B7001C8F9E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD8F7422BF7A2B7001C8F9E /* AppDelegate.swift */; };
 		2BD8F7452BF7A2B7001C8F9E /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD8F7442BF7A2B7001C8F9E /* SceneDelegate.swift */; };
 		2BD8F7472BF7A2B7001C8F9E /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD8F7462BF7A2B7001C8F9E /* MapViewController.swift */; };
@@ -43,6 +44,7 @@
 		2BA7EB1A2C0BA2D5003135EA /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		2BA7EB1C2C0BA6DD003135EA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2BA7EB302C0BB624003135EA /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
+		2BCF26F72C193CD2006A6DB7 /* CheckUserViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckUserViewController.swift; sourceTree = "<group>"; };
 		2BD8F73F2BF7A2B7001C8F9E /* iosProgramming-Project-2171217-juwonhee.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "iosProgramming-Project-2171217-juwonhee.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2BD8F7422BF7A2B7001C8F9E /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2BD8F7442BF7A2B7001C8F9E /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -123,6 +125,7 @@
 				2BA5D85D2C0ECF4C008EC52A /* BikeStationAnnotationViewController.swift */,
 				2BA5D85F2C0ECF7B008EC52A /* BikeStationAnnotationViewViewController.swift */,
 				2BA5D8612C0ED6C8008EC52A /* BikeStationInfoViewController.swift */,
+				2BCF26F72C193CD2006A6DB7 /* CheckUserViewController.swift */,
 			);
 			path = "iosProgramming-Project-2171217-juwonhee";
 			sourceTree = "<group>";
@@ -226,6 +229,7 @@
 				2BF7B4922C0D91D700E1C6BE /* LaunchScreenViewController.swift in Sources */,
 				2BD8F7452BF7A2B7001C8F9E /* SceneDelegate.swift in Sources */,
 				2BA5D8622C0ED6C8008EC52A /* BikeStationInfoViewController.swift in Sources */,
+				2BCF26F82C193CD2006A6DB7 /* CheckUserViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
