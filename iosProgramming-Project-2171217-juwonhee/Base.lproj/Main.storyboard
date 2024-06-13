@@ -26,10 +26,10 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" id="aly-uH-8RI">
-                        <barButtonItem key="rightBarButtonItem" title="확인" id="7nR-jV-pMW">
+                    <navigationItem key="navigationItem" id="Uuy-jX-xzR">
+                        <barButtonItem key="rightBarButtonItem" title="완료" id="b68-YD-rhj">
                             <connections>
-                                <segue destination="RXS-3L-uDn" kind="show" id="1nC-ti-kwc"/>
+                                <segue destination="RXS-3L-uDn" kind="show" id="qhP-Wd-XlI"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -39,7 +39,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6640" y="917"/>
+            <point key="canvasLocation" x="5088" y="799"/>
         </scene>
         <!--Purchase View Controller-->
         <scene sceneID="yAj-Bt-TF2">
@@ -134,42 +134,87 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xbY-eV-n7Q">
-                                <rect key="frame" x="155" y="468" width="83" height="35"/>
+                                <rect key="frame" x="146" y="468" width="102" height="35"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="도착하기"/>
+                                <buttonConfiguration key="configuration" style="plain" title="목적지 도착"/>
                                 <connections>
-                                    <segue destination="7eM-YP-Ffx" kind="show" id="llr-TI-gda"/>
+                                    <segue destination="7eM-YP-Ffx" kind="presentation" id="Una-bt-EBc"/>
                                 </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="XG8-la-GPd"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" id="RyK-gh-hcv"/>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="aly-uH-8RI">
+                        <barButtonItem key="rightBarButtonItem" title="종료" id="7nR-jV-pMW">
+                            <connections>
+                                <segue destination="7uo-HW-UOg" kind="show" id="wgd-1m-xnd"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
-                        <outlet property="arrivedButton" destination="xbY-eV-n7Q" id="k2Y-jt-nru"/>
+                        <outlet property="arrivedButton" destination="xbY-eV-n7Q" id="2u8-Jr-fK3"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EAD-ow-Qj5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="6055.7251908396947" y="35.91549295774648"/>
         </scene>
-        <!--View Controller-->
+        <!--Print Record Modal View Controller-->
         <scene sceneID="H6A-FT-eY5">
             <objects>
-                <viewController id="7eM-YP-Ffx" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PrintRecordModalViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="7eM-YP-Ffx" customClass="PrintRecordModalViewController" customModule="iosProgramming_Project_2171217_juwonhee" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="SMD-Z1-LIE">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6Ad-Cc-B7Z">
+                                <rect key="frame" x="0.0" y="220" width="393" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VU0-zn-UBp">
+                                <rect key="frame" x="0.0" y="259" width="388" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XFO-GW-cRa">
+                                <rect key="frame" x="0.0" y="301" width="393" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TnG-W9-QpM">
+                                <rect key="frame" x="0.0" y="348" width="393" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="dR5-xZ-5bj"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" id="YMx-6b-FFa"/>
+                    <toolbarItems/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="caloriesLabel" destination="XFO-GW-cRa" id="Uui-7E-a9A"/>
+                        <outlet property="carbonReductionLabel" destination="TnG-W9-QpM" id="q6z-We-z7c"/>
+                        <outlet property="distanceLabel" destination="VU0-zn-UBp" id="DVL-FD-V7L"/>
+                        <outlet property="usageTimeLabel" destination="6Ad-Cc-B7Z" id="wjW-Qj-efu"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KJC-Ev-u3B" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6869" y="36"/>
+            <point key="canvasLocation" x="7145.801526717557" y="227.46478873239437"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="mu7-Is-Np3">
@@ -198,6 +243,17 @@
                     <view key="view" contentMode="scaleToFill" id="piJ-6b-vQR">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SJX-V3-Uwn">
+                                <rect key="frame" x="148" y="467" width="98" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="모두 보기&gt;"/>
+                                <connections>
+                                    <segue destination="7uo-HW-UOg" kind="show" id="QCX-Vr-5S9"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="knr-hQ-GLI"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
@@ -238,6 +294,32 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Cdv-mQ-sHT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2538" y="723"/>
+        </scene>
+        <!--Print Record View Controller-->
+        <scene sceneID="scq-oQ-D8B">
+            <objects>
+                <viewController storyboardIdentifier="PrintRecordViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="7uo-HW-UOg" customClass="PrintRecordViewController" customModule="iosProgramming_Project_2171217_juwonhee" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="AHC-jy-Dvq">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="kUb-jz-KKN">
+                                <rect key="frame" x="16" y="292" width="361" height="428"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="P3P-Ig-60U"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="U2B-6M-HAE"/>
+                    <connections>
+                        <outlet property="bikeRecordTableView" destination="kUb-jz-KKN" id="pcb-IW-gJJ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iX0-IQ-13K" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6055.7251908396947" y="822.53521126760563"/>
         </scene>
         <!--내 정보-->
         <scene sceneID="BU6-tn-dn4">
@@ -325,7 +407,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="1nC-ti-kwc"/>
+        <segue reference="wgd-1m-xnd"/>
+        <segue reference="qhP-Wd-XlI"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="map" catalog="system" width="128" height="112"/>
