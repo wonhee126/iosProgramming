@@ -103,15 +103,73 @@
                                     <segue destination="BYZ-38-t0r" kind="show" id="thK-At-2UM"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Ij-NP-eg2">
+                                <rect key="frame" x="155" y="606" width="83" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="다음으로"/>
+                                <connections>
+                                    <segue destination="Grb-TY-xQi" kind="show" id="jYf-MS-Ryv"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="hrG-Rx-v73"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" id="V9x-SY-wxx"/>
+                    <connections>
+                        <outlet property="nextButton" destination="7Ij-NP-eg2" id="cRW-WQ-VyQ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="C8h-zw-FHl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="5226.7175572519081" y="20.422535211267608"/>
+        </scene>
+        <!--Bike Measurement View Controller-->
+        <scene sceneID="nOT-fs-YwX">
+            <objects>
+                <viewController storyboardIdentifier="BikeMeasurementViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Grb-TY-xQi" customClass="BikeMeasurementViewController" customModule="iosProgramming_Project_2171217_juwonhee" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="3Pz-5H-EaC">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xbY-eV-n7Q">
+                                <rect key="frame" x="155" y="468" width="83" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="도착하기"/>
+                                <connections>
+                                    <segue destination="7eM-YP-Ffx" kind="show" id="llr-TI-gda"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="XG8-la-GPd"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="RyK-gh-hcv"/>
+                    <connections>
+                        <outlet property="arrivedButton" destination="xbY-eV-n7Q" id="k2Y-jt-nru"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="EAD-ow-Qj5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6055.7251908396947" y="35.91549295774648"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="H6A-FT-eY5">
+            <objects>
+                <viewController id="7eM-YP-Ffx" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="SMD-Z1-LIE">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="dR5-xZ-5bj"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="YMx-6b-FFa"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KJC-Ev-u3B" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6869" y="36"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="mu7-Is-Np3">
@@ -218,7 +276,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tCA-KA-Ae9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="7327" y="-23"/>
+            <point key="canvasLocation" x="9587" y="-340"/>
         </scene>
         <!--이용권 구매-->
         <scene sceneID="XOQ-GN-Ce1">
@@ -263,11 +321,10 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RVk-NG-zVa" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="8092" y="-23"/>
+            <point key="canvasLocation" x="10390" y="-340"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="thK-At-2UM"/>
         <segue reference="1nC-ti-kwc"/>
     </inferredMetricsTieBreakers>
     <resources>

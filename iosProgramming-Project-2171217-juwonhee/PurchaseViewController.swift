@@ -119,7 +119,7 @@ class PurchaseViewController: UIViewController, UIPickerViewDataSource, UIPicker
             
             let titleLabel = UILabel()
             titleLabel.text = "EcoBike"
-            titleLabel.font = UIFont.systemFont(ofSize: 10)
+            titleLabel.font = UIFont.systemFont(ofSize: 8)
             titleLabel.translatesAutoresizingMaskIntoConstraints = false
             
             let stackView = UIStackView(arrangedSubviews: [imageView, titleLabel])
@@ -134,8 +134,8 @@ class PurchaseViewController: UIViewController, UIPickerViewDataSource, UIPicker
                 stackView.centerXAnchor.constraint(equalTo: titleView.centerXAnchor),
                 stackView.centerYAnchor.constraint(equalTo: titleView.centerYAnchor),
                 
-                imageView.widthAnchor.constraint(equalToConstant: 40),
-                imageView.heightAnchor.constraint(equalToConstant: 40)
+                imageView.widthAnchor.constraint(equalToConstant: 36),
+                imageView.heightAnchor.constraint(equalToConstant: 36)
             ])
             
             self.navigationItem.titleView = titleView
