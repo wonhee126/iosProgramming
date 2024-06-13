@@ -14,11 +14,11 @@
             <objects>
                 <viewController storyboardIdentifier="MapViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="BYZ-38-t0r" customClass="MapViewController" customModule="iosProgramming_Project_2171217_juwonhee" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7ba-Ze-jmU">
-                                <rect key="frame" x="0.0" y="103" width="393" height="666"/>
+                                <rect key="frame" x="0.0" y="125" width="393" height="644"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <standardMapConfiguration key="preferredConfiguration"/>
                             </mapView>
@@ -26,14 +26,20 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
-                    <navigationItem key="navigationItem" id="aly-uH-8RI"/>
+                    <navigationItem key="navigationItem" id="aly-uH-8RI">
+                        <barButtonItem key="rightBarButtonItem" title="확인" id="7nR-jV-pMW">
+                            <connections>
+                                <segue destination="RXS-3L-uDn" kind="show" id="1nC-ti-kwc"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="mapView" destination="7ba-Ze-jmU" id="5L1-3J-Dbm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6937" y="823"/>
+            <point key="canvasLocation" x="6640" y="917"/>
         </scene>
         <!--Purchase View Controller-->
         <scene sceneID="yAj-Bt-TF2">
@@ -85,7 +91,7 @@
             <objects>
                 <viewController storyboardIdentifier="SelectedStationViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="RXS-3L-uDn" customClass="SelectedStationViewController" customModule="iosProgramming_Project_2171217_juwonhee" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="87e-ee-1UF">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GGF-2d-C1E">
@@ -216,7 +222,7 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="2z3-Or-yMI"/>
+                        <segue destination="v5S-hF-hmx" kind="relationship" relationship="rootViewController" id="IyO-YS-kR7"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tCA-KA-Ae9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -242,8 +248,35 @@
             </objects>
             <point key="canvasLocation" x="3522.9007633587785" y="21.83098591549296"/>
         </scene>
+        <!--Tab Map View Controller-->
+        <scene sceneID="K7B-gT-6bZ">
+            <objects>
+                <viewController storyboardIdentifier="TabMapViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="v5S-hF-hmx" customClass="TabMapViewController" customModule="iosProgramming_Project_2171217_juwonhee" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="BLw-zK-zR1">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uyH-1B-KSS">
+                                <rect key="frame" x="0.0" y="125" width="393" height="644"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <standardMapConfiguration key="preferredConfiguration"/>
+                            </mapView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="QG4-7m-kQo"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="3qR-tp-aVh"/>
+                    <connections>
+                        <outlet property="mapView" destination="uyH-1B-KSS" id="5IX-rG-7P5"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RVk-NG-zVa" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="8092" y="-23"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="1nC-ti-kwc"/>
         <segue reference="Lx3-w5-bRR"/>
     </inferredMetricsTieBreakers>
     <resources>

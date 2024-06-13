@@ -23,6 +23,6 @@ class BikeStationAnnotation: NSObject, MKAnnotation {
 
     var markerTintColor: UIColor {
         return .green
-    }
+    } 
 }
 
