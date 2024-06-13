@@ -61,20 +61,21 @@ class BikeStationAnnotationView: MKMarkerAnnotationView {
         historyCollection.document("bikeList").getDocument { (document, error) in
             var newIndex = 0
             
-            if let document = document, document.exists {
-                // If document exists, get the current count and increment it
-                newIndex = (document.data()?["count"] as? Int ?? 0) + 1
-            } else {
-                // If document doesn't exist, create it with count 1
-                historyCollection.document("bikeList").setData(["count": 1])
-            }
+//            if let document = document, document.exists {
+//                // If document exists, get the current count and increment it
+//                newIndex = (document.data()?["count"] as? Int ?? 0) + 1
+//            } else {
+//                // If document doesn't exist, create it with count 1
+//                historyCollection.document("bikeList").setData(["count": 1])
+//            }
             
             // Add new document with the incremented index
-            let bikeListDoc = historyCollection.document("bikeList").collection("\(newIndex)").document("record")
+//            let bikeListDoc = historyCollection.document("bikeList").collection("\(newIndex)").document("record")
+            let newRecordRef = historyCollection.document("bikeList").collection("1").document("record")
             
             // Set data in Firestore based on type
             if type == "start" {
-                bikeListDoc.setData([
+                newRecordRef.setData([
                     "startType": type,
                     "startLocation": location,
                     "startTimestamp": timestamp
@@ -86,7 +87,7 @@ class BikeStationAnnotationView: MKMarkerAnnotationView {
                     }
                 }
             } else if type == "end" {
-                bikeListDoc.setData([
+                newRecordRef.setData([
                     "endType": type,
                     "endLocation": location,
                     "endTimestamp": timestamp

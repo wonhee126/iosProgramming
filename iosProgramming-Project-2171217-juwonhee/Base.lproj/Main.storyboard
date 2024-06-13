@@ -95,21 +95,12 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GGF-2d-C1E">
-                                <rect key="frame" x="146" y="263" width="102" height="46"/>
+                                <rect key="frame" x="123" y="403" width="146" height="46"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="출발지 지도"/>
+                                <buttonConfiguration key="configuration" style="plain" title="지도에서 선택하기"/>
                                 <connections>
-                                    <segue destination="BYZ-38-t0r" kind="show" id="Lx3-w5-bRR"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cir-vM-FdY">
-                                <rect key="frame" x="146" y="344" width="102" height="35"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="도착지 지도"/>
-                                <connections>
-                                    <segue destination="BYZ-38-t0r" kind="show" id="kh2-az-r4i"/>
+                                    <segue destination="BYZ-38-t0r" kind="show" id="thK-At-2UM"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -276,8 +267,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="thK-At-2UM"/>
         <segue reference="1nC-ti-kwc"/>
-        <segue reference="Lx3-w5-bRR"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="map" catalog="system" width="128" height="112"/>
