@@ -176,7 +176,7 @@ class PurchaseViewController: UIViewController, UIPickerViewDataSource, UIPicker
 //                segmentedControl.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
 //                segmentedControl.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
 //                segmentedControl.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-//                
+//
 //                rentalLabel.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: 40),
                 rentalLabel.topAnchor.constraint(equalTo: dailyLabel.bottomAnchor, constant: 40),
                 rentalLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),

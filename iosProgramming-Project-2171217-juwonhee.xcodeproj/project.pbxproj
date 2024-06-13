@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B6AFE062C1BA50300AFDE8E /* NotificationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6AFE052C1BA50300AFDE8E /* NotificationExtensions.swift */; };
 		2B9479A32C1B23E2008B1CB8 /* TabMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9479A22C1B23E2008B1CB8 /* TabMapViewController.swift */; };
 		2B9479A52C1B25BA008B1CB8 /* BikeStationAnnotationTapViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9479A42C1B25BA008B1CB8 /* BikeStationAnnotationTapViewViewController.swift */; };
 		2B9479A72C1B5E38008B1CB8 /* BikeMeasurementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9479A62C1B5E38008B1CB8 /* BikeMeasurementViewController.swift */; };
@@ -45,6 +46,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2B6AFE052C1BA50300AFDE8E /* NotificationExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationExtensions.swift; sourceTree = "<group>"; };
 		2B9479A22C1B23E2008B1CB8 /* TabMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabMapViewController.swift; sourceTree = "<group>"; };
 		2B9479A42C1B25BA008B1CB8 /* BikeStationAnnotationTapViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeStationAnnotationTapViewViewController.swift; sourceTree = "<group>"; };
 		2B9479A62C1B5E38008B1CB8 /* BikeMeasurementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeMeasurementViewController.swift; sourceTree = "<group>"; };
@@ -150,6 +152,7 @@
 				2B9479A82C1B6B1E008B1CB8 /* BikeRecord.swift */,
 				2B9479AA2C1B70FC008B1CB8 /* PrintRecordModalViewController.swift */,
 				2B9479AC2C1B757D008B1CB8 /* PrintRecordViewController.swift */,
+				2B6AFE052C1BA50300AFDE8E /* NotificationExtensions.swift */,
 			);
 			path = "iosProgramming-Project-2171217-juwonhee";
 			sourceTree = "<group>";
@@ -243,6 +246,7 @@
 				2BA7EB312C0BB624003135EA /* SignupViewController.swift in Sources */,
 				2BD8F7472BF7A2B7001C8F9E /* MapViewController.swift in Sources */,
 				2BA5D8602C0ECF7B008EC52A /* BikeStationAnnotationViewViewController.swift in Sources */,
+				2B6AFE062C1BA50300AFDE8E /* NotificationExtensions.swift in Sources */,
 				2B9479AD2C1B757D008B1CB8 /* PrintRecordViewController.swift in Sources */,
 				2BD8F7662BF7D62A001C8F9E /* BikeStationLoader.swift in Sources */,
 				2BA7EB192C0BA28D003135EA /* MypageViewController.swift in Sources */,

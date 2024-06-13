@@ -112,12 +112,20 @@
                                     <segue destination="Grb-TY-xQi" kind="show" id="jYf-MS-Ryv"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="498-C0-dMT">
+                                <rect key="frame" x="41" y="519" width="328" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="hrG-Rx-v73"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" id="V9x-SY-wxx"/>
                     <connections>
+                        <outlet property="bikeStationNameLabel" destination="498-C0-dMT" id="ups-eH-Sc3"/>
                         <outlet property="nextButton" destination="7Ij-NP-eg2" id="cRW-WQ-VyQ"/>
                     </connections>
                 </viewController>
