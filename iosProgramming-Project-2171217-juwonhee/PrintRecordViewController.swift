@@ -86,4 +86,3 @@ class PrintRecordViewController: UIViewController {
 //            navigationController?.pushViewController(detailVC, animated: true)
         }
     }
-

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2B6AFE062C1BA50300AFDE8E /* NotificationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6AFE052C1BA50300AFDE8E /* NotificationExtensions.swift */; };
+		2B6AFE082C1BC47D00AFDE8E /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6AFE072C1BC47D00AFDE8E /* DetailViewController.swift */; };
 		2B9479A32C1B23E2008B1CB8 /* TabMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9479A22C1B23E2008B1CB8 /* TabMapViewController.swift */; };
 		2B9479A52C1B25BA008B1CB8 /* BikeStationAnnotationTapViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9479A42C1B25BA008B1CB8 /* BikeStationAnnotationTapViewViewController.swift */; };
 		2B9479A72C1B5E38008B1CB8 /* BikeMeasurementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9479A62C1B5E38008B1CB8 /* BikeMeasurementViewController.swift */; };
@@ -47,6 +48,7 @@
 
 /* Begin PBXFileReference section */
 		2B6AFE052C1BA50300AFDE8E /* NotificationExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationExtensions.swift; sourceTree = "<group>"; };
+		2B6AFE072C1BC47D00AFDE8E /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		2B9479A22C1B23E2008B1CB8 /* TabMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabMapViewController.swift; sourceTree = "<group>"; };
 		2B9479A42C1B25BA008B1CB8 /* BikeStationAnnotationTapViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeStationAnnotationTapViewViewController.swift; sourceTree = "<group>"; };
 		2B9479A62C1B5E38008B1CB8 /* BikeMeasurementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeMeasurementViewController.swift; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 				2B9479AA2C1B70FC008B1CB8 /* PrintRecordModalViewController.swift */,
 				2B9479AC2C1B757D008B1CB8 /* PrintRecordViewController.swift */,
 				2B6AFE052C1BA50300AFDE8E /* NotificationExtensions.swift */,
+				2B6AFE072C1BC47D00AFDE8E /* DetailViewController.swift */,
 			);
 			path = "iosProgramming-Project-2171217-juwonhee";
 			sourceTree = "<group>";
@@ -258,6 +261,7 @@
 				2B9479A92C1B6B1E008B1CB8 /* BikeRecord.swift in Sources */,
 				2BD8F7432BF7A2B7001C8F9E /* AppDelegate.swift in Sources */,
 				2BA04A3A2C1A21E5008A774E /* SelectedStationViewController.swift in Sources */,
+				2B6AFE082C1BC47D00AFDE8E /* DetailViewController.swift in Sources */,
 				2BA7EB1B2C0BA2D5003135EA /* LoginViewController.swift in Sources */,
 				2BD8F75E2BF7C155001C8F9E /* bikeData.json in Sources */,
 				2BD8F7682BF7DD05001C8F9E /* Location.swift in Sources */,

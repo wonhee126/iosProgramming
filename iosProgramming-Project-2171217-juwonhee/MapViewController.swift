@@ -7,11 +7,12 @@ import FirebaseFirestore
 
 class MapViewController: UIViewController, CLLocationManagerDelegate {
     
+
+
+
+
     @IBOutlet weak var mapView: MKMapView!
-
-
-
-
+    
 
             let locationManager = CLLocationManager()
             var initialLocationSet = false
@@ -23,8 +24,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
             
             override func viewDidLoad() {
                 super.viewDidLoad()
-                NotificationCenter.default.addObserver(self, selector: #selector(handleStationNameUpdated(_:)), name: .stationNameUpdated, object: nil)
-                
                 
                 setupNavigationBar()
                 setupMapView()
@@ -32,26 +31,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
                 checkLocationAuthorizationStatus()
                 loadBikeStations()
             }
-        
-        @objc func handleStationNameUpdated(_ notification: Notification) {
-                // notification.object에서 stationName을 가져옴
-                if let stationName = notification.object as? String {
-                    print("Received stationName in MapViewController: \(stationName)")
-                    
-                    // Pass the stationName to SelectedStationViewController
-                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                    if let selectedStationVC = storyboard.instantiateViewController(withIdentifier: "SelectedStationViewController") as? SelectedStationViewController {
-                        selectedStationVC.stationName = stationName
-                        navigationController?.pushViewController(selectedStationVC, animated: true)
-                    }
-                }
-            }
-            
-            deinit {
-                // NotificationCenter 옵저버 해제
-                NotificationCenter.default.removeObserver(self, name: .stationNameUpdated, object: nil)
-            }
-        
             
             func setupNavigationBar() {
                 // 네비게이션 바 설정
