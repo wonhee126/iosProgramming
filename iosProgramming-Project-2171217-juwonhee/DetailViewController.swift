@@ -11,23 +11,47 @@ class DetailViewController: UIViewController {
 
     var bikeRecord: BikeRecord?
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
-    }
+    @IBOutlet weak var carbonReductionLabel: UILabel!
+    @IBOutlet weak var caloriesLabel: UILabel!
+    @IBOutlet weak var distanceLabel: UILabel!
+    @IBOutlet weak var usageTimeLabel: UILabel!
+    @IBOutlet weak var endLocationLabel: UILabel!
+    @IBOutlet weak var startLocationLabel: UILabel!
+    @IBOutlet weak var startTimeLabel: UILabel!
+    @IBOutlet weak var endTimeLabel: UILabel!
     
 
-    
 
-    /*
-    // MARK: - Navigation
+        
+        override func viewDidLoad() {
+            super.viewDidLoad()
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+            updateUI()
+        }
+        
+        func updateUI() {
+            guard let record = bikeRecord else {
+                print("자전거 기록이 없습니다.")
+                return
+            }
+            
+            startLocationLabel.text = "출발지: \(record.startLocation)"
+            endLocationLabel.text = "도착지: \(record.endLocation)"
+            usageTimeLabel.text = "이용 시간: \(record.usageTime) 분"
+            distanceLabel.text = String(format: "거리: %.2f km", record.distance)
+            caloriesLabel.text = String(format: "칼로리 소모: %.1f kcal", record.calories)
+            carbonReductionLabel.text = String(format: "탄소 절감: %.3f kg", record.carbonReduction)
+            
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
+            
+            dateFormatter.timeZone = TimeZone.current
+            
+            
+//            startTimeLabel.text = "출발 시각: \(record.startTime)"
+//            endTimeLabel.text = "도착 시각: \(record.endTime)"
+            
+            startTimeLabel.text = "출발 시각: \(dateFormatter.string(from: record.startTime))"
+            endTimeLabel.text = "도착 시각: \(dateFormatter.string(from: record.endTime))"
+        }
     }
-    */
-
-}

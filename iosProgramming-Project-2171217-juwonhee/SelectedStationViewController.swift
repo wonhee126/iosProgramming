@@ -22,13 +22,7 @@ class SelectedStationViewController: UIViewController {
     @IBOutlet weak var nextButton: UIButton!
     
 
-    @IBOutlet weak var startBikeStationNameLabel: UILabel!
-    @IBOutlet weak var endBikeStationNameLabel: UILabel!
 
-
-
-
-        
         // Firebase Firestore 참조 생성
         let db = Firestore.firestore()
 

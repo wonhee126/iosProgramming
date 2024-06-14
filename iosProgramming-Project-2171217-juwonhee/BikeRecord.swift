@@ -16,6 +16,11 @@ struct BikeRecord {
     var distance: Double
     var calories: Double
     var carbonReduction: Double
+    var startLocation: String
+    var endLocation: String
+    var startTime: Date
+    var endTime: Date
+    
     
     // 모델을 Dictionary로 변환하는 메서드
     func dictionaryRepresentation() -> [String: Any] {
@@ -23,7 +28,12 @@ struct BikeRecord {
             "usageTime": usageTime,
             "distance": distance,
             "calories": calories,
-            "carbonReduction": carbonReduction
+            "carbonReduction": carbonReduction,
+            "startLocation": startLocation,
+           "endLocation": endLocation,
+           "startTime": startTime,
+           "endTime": endTime
+            
         ]
     }
 }

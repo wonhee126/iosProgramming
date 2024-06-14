@@ -11,18 +11,24 @@ import FirebaseAuth
 import FirebaseFirestore
 
 class PrintRecordViewController: UIViewController {
-
-    @IBOutlet weak var bikeRecordTableView: UITableView!
     
+    @IBOutlet weak var bikeRecordTableView: UITableView!
+
         
         private var bikeRecords: [BikeRecord] = []
         private let db = Firestore.firestore()
+        private var listener: ListenerRegistration?
         
         override func viewDidLoad() {
             super.viewDidLoad()
-
+            
             configureTableView()
             fetchBikeRecords()
+        }
+        
+        deinit {
+            // 뷰 컨트롤러가 메모리에서 해제될 때 리스너를 제거합니다.
+            listener?.remove()
         }
         
         func configureTableView() {
@@ -32,33 +38,67 @@ class PrintRecordViewController: UIViewController {
         }
         
         func fetchBikeRecords() {
-            guard let userId = Auth.auth().currentUser?.uid else {
+            guard let user = Auth.auth().currentUser else {
                 print("사용자가 로그인되어 있지 않습니다.")
                 return
             }
             
-            db.collection("history").document("bikelist").collection(userId).getDocuments { (querySnapshot, error) in
-                if let error = error {
-                    print("자전거 기록을 가져오는 데 실패했습니다: \(error.localizedDescription)")
-                    return
-                }
-                
-                var fetchedRecords: [BikeRecord] = []
-                for document in querySnapshot!.documents {
-                    if let recordData = document.data() as? [String: Any],
-                       let usageTime = recordData["usageTime"] as? Int,
-                       let distance = recordData["distance"] as? Double,
-                       let calories = recordData["calories"] as? Double,
-                       let carbonReduction = recordData["carbonReduction"] as? Double {
+            let userEmail = user.email ?? "unknown@example.com"
+            
+            // Firestore에서 데이터 변경을 실시간으로 감지하기 위해 listener 등록
+            listener = db.collection("history")
+                .document("bikelist")
+                .collection(userEmail)
+                .addSnapshotListener { [weak self] (querySnapshot, error) in
+                    guard let self = self else { return }
+                    
+                    if let error = error {
+                        print("Error fetching bike records: \(error.localizedDescription)")
+                        return
+                    }
+                    
+                    var fetchedRecords: [BikeRecord] = []
+                    
+                    for document in querySnapshot!.documents {
+                        let recordData = document.data()
                         
-                        let record = BikeRecord(usageTime: usageTime, distance: distance, calories: calories, carbonReduction: carbonReduction)
+                        // 각 필드가 올바르게 파싱되는지 확인
+                        guard let usageTime = recordData["usageTime"] as? Int,
+                              let distance = recordData["distance"] as? Double,
+                              let calories = recordData["calories"] as? Double,
+                              let carbonReduction = recordData["carbonReduction"] as? Double,
+                              let startLocation = recordData["startLocation"] as? String,
+                              let endLocation = recordData["endLocation"] as? String,
+                              let startTimeStamp = recordData["startTime"] as? Timestamp,
+                              let endTimeStamp = recordData["endTime"] as? Timestamp else {
+                            print("Invalid data format for document \(document.documentID)")
+                            continue
+                        }
+                        
+                        let startTime = startTimeStamp.dateValue()
+                                           let endTime = endTimeStamp.dateValue()
+                        
+                        // BikeRecord 객체 생성
+                        let record = BikeRecord(
+                            usageTime: usageTime,
+                            distance: distance,
+                            calories: calories,
+                            carbonReduction: carbonReduction,
+                            startLocation: startLocation,
+                            endLocation: endLocation,
+                            startTime: startTime,
+                            endTime: endTime
+                        )
+                        
                         fetchedRecords.append(record)
                     }
+                    
+                    // 데이터를 배열에 저장하고 TableView 업데이트
+                    self.bikeRecords = fetchedRecords
+                    DispatchQueue.main.async {
+                        self.bikeRecordTableView.reloadData()
+                    }
                 }
-                
-                self.bikeRecords = fetchedRecords
-                self.bikeRecordTableView.reloadData()
-            }
         }
     }
 
@@ -71,7 +111,15 @@ class PrintRecordViewController: UIViewController {
         func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
             let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
             let record = bikeRecords[indexPath.row]
-            cell.textLabel?.text = "이용 시간: \(record.usageTime) 분, 거리: \(record.distance) km"
+            let formattedDistance = String(format: "거리: %.3f km", record.distance)
+            cell.textLabel?.text = "이용 시간: \(record.usageTime) 분, \(formattedDistance)"
+            
+            let arrowImageView = UIImageView(image: UIImage(systemName: "chevron.right"))
+            arrowImageView.tintColor = .systemBlue
+            arrowImageView.contentMode = .scaleAspectFit
+            
+            cell.accessoryView = arrowImageView
+            
             return cell
         }
         
@@ -81,8 +129,8 @@ class PrintRecordViewController: UIViewController {
         }
         
         func showDetailViewController(for record: BikeRecord) {
-//            let detailVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
-//            detailVC.bikeRecord = record
-//            navigationController?.pushViewController(detailVC, animated: true)
+            let detailVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
+            detailVC.bikeRecord = record
+            navigationController?.pushViewController(detailVC, animated: true)
         }
     }
