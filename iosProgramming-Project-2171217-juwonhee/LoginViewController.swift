@@ -49,7 +49,7 @@ class LoginViewController: UIViewController {
         ])
         
         emailTextField = UITextField()
-        emailTextField.placeholder = "아이디"
+        emailTextField.placeholder = "이메일"
         emailContainerView.addSubview(emailTextField)
         emailTextField.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
@@ -85,7 +85,7 @@ class LoginViewController: UIViewController {
         
         let loginButton = UIButton(type: .system)
         loginButton.setTitle("로그인", for: .normal)
-        loginButton.backgroundColor = UIColor.systemTeal
+        loginButton.backgroundColor = UIColor(red: 148/255, green: 206/255, blue: 204/255, alpha: 1.0)
         loginButton.setTitleColor(.black, for: .normal)
         loginButton.layer.cornerRadius = 5
         loginButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
@@ -100,7 +100,7 @@ class LoginViewController: UIViewController {
         
         let signUpButton = UIButton(type: .system)
         signUpButton.setTitle("회원가입", for: .normal)
-        signUpButton.backgroundColor = UIColor.systemTeal
+        signUpButton.backgroundColor = UIColor(red: 148/255, green: 206/255, blue: 204/255, alpha: 1.0)
         signUpButton.setTitleColor(.black, for: .normal)
         signUpButton.layer.cornerRadius = 5
         signUpButton.addTarget(self, action: #selector(signUpButtonTapped), for: .touchUpInside)

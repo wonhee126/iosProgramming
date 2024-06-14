@@ -16,7 +16,7 @@ class TabMapViewController: UIViewController, CLLocationManagerDelegate {
     let locationManager = CLLocationManager()
     var initialLocationSet = false
     let initialCoordinates = CLLocationCoordinate2D(latitude: 37.499166, longitude: 127.159291)
-    let regionRadius: CLLocationDistance = 500
+    let regionRadius: CLLocationDistance = 500 
     
     let infoView = BikeStationInfoView()
 
@@ -44,7 +44,7 @@ class TabMapViewController: UIViewController, CLLocationManagerDelegate {
         
         let titleLabel = UILabel()
         titleLabel.text = "EcoBike"
-        titleLabel.font = UIFont.systemFont(ofSize: 8)
+        titleLabel.font = UIFont.systemFont(ofSize: 10)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         
         let stackView = UIStackView(arrangedSubviews: [imageView, titleLabel])

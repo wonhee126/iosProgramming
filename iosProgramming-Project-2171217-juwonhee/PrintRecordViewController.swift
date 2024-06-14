@@ -14,7 +14,8 @@ class PrintRecordViewController: UIViewController {
     
     @IBOutlet weak var bikeRecordTableView: UITableView!
 
-        
+
+    
         private var bikeRecords: [BikeRecord] = []
         private let db = Firestore.firestore()
         private var listener: ListenerRegistration?

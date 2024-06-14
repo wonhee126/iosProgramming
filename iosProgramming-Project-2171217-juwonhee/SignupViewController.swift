@@ -20,7 +20,15 @@ class SignupViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCustomViews()
+
     }
+    
+
+    
+    @objc func backButtonTapped() {
+           dismiss(animated: true, completion: nil)
+       }
+    
     
     func setupCustomViews() {
         let logoImageView = UIImageView()
@@ -103,7 +111,7 @@ class SignupViewController: UIViewController {
         
         let signUpButton = UIButton(type: .system)
         signUpButton.setTitle("회원가입", for: .normal)
-        signUpButton.backgroundColor = UIColor.systemTeal
+        signUpButton.backgroundColor = UIColor(red: 148/255, green: 206/255, blue: 204/255, alpha: 1.0)
         signUpButton.setTitleColor(.black, for: .normal)
         signUpButton.layer.cornerRadius = 5
         signUpButton.addTarget(self, action: #selector(signupButtonTapped), for: .touchUpInside)
@@ -115,12 +123,27 @@ class SignupViewController: UIViewController {
             signUpButton.widthAnchor.constraint(equalToConstant: 150),
             signUpButton.heightAnchor.constraint(equalToConstant: 50)
         ])
+        
+        let backButton = UIButton(type: .system)
+        backButton.setTitle("뒤로가기", for: .normal)
+        backButton.setTitleColor(.black, for: .normal)
+        backButton.layer.cornerRadius = 5
+        backButton.backgroundColor = UIColor(red: 148/255, green: 206/255, blue: 204/255, alpha: 1.0)
+        backButton.addTarget(self, action: #selector(backButtonTapped), for: .touchUpInside)
+        self.view.addSubview(backButton)
+        backButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            backButton.topAnchor.constraint(equalTo: signUpButton.bottomAnchor, constant: 20),
+            backButton.leadingAnchor.constraint(equalTo: signUpButton.leadingAnchor),
+            backButton.widthAnchor.constraint(equalToConstant: 150),
+            backButton.heightAnchor.constraint(equalToConstant: 50)
+        ])
     }
     
     func createContainerView() -> UIView {
         let containerView = UIView()
         containerView.layer.borderWidth = 1
-        containerView.layer.borderColor = UIColor.systemTeal.cgColor
+        containerView.layer.borderColor = UIColor(red: 148/255, green: 206/255, blue: 204/255, alpha: 1.0).cgColor
         containerView.layer.cornerRadius = 5
         containerView.translatesAutoresizingMaskIntoConstraints = false
         return containerView

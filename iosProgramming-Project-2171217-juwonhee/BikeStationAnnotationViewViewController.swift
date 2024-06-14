@@ -28,10 +28,8 @@ class BikeStationAnnotationView: MKMarkerAnnotationView {
             
             markerTintColor = bikeStation.markerTintColor
             glyphText = "\(bikeStation.availableBikes)"
-            
-            // Segmented Control 설정
+
             let segmentedControl = UISegmentedControl(items: ["출발", "도착"])
-            //            segmentedControl.selectedSegmentIndex = 0 // 기본값을 출발로 설정
             segmentedControl.addTarget(self, action: #selector(segmentedControlChanged(_:)), for: .valueChanged)
             
             rightCalloutAccessoryView = segmentedControl
@@ -57,23 +55,10 @@ class BikeStationAnnotationView: MKMarkerAnnotationView {
         let timestamp = Timestamp(date: Date())
         let type = sender.selectedSegmentIndex == 0 ? "start" : "end"
         
-        // Get the current count of documents in bikeList
         historyCollection.document("bikeList").getDocument { (document, error) in
             var newIndex = 0
-            
-//            if let document = document, document.exists {
-//                // If document exists, get the current count and increment it
-//                newIndex = (document.data()?["count"] as? Int ?? 0) + 1
-//            } else {
-//                // If document doesn't exist, create it with count 1
-//                historyCollection.document("bikeList").setData(["count": 1])
-//            }
-            
-            // Add new document with the incremented index
-//            let bikeListDoc = historyCollection.document("bikeList").collection("\(newIndex)").document("record")
             let newRecordRef = historyCollection.document("bikeList").collection("1").document("record")
             
-            // Set data in Firestore based on type
             if type == "start" {
                 newRecordRef.setData([
                     "startType": type,
@@ -101,10 +86,6 @@ class BikeStationAnnotationView: MKMarkerAnnotationView {
             }
         }
     }
-
-
-
-
 
 }
    

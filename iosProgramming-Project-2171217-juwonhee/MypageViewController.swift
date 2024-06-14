@@ -15,6 +15,8 @@ class MypageViewController: UIViewController {
     
     let db = Firestore.firestore()
     
+    @IBOutlet weak var allRecordListButton: UIButton!
+    
     let profileImageView = UIImageView()
     let nicknameLabel = UILabel()
     let emailLabel = UILabel()
@@ -81,23 +83,19 @@ class MypageViewController: UIViewController {
     func setupUI() {
         view.backgroundColor = .white
         
-        // 프로필 이미지
         profileImageView.image = UIImage(named: "EcoBike")
         profileImageView.translatesAutoresizingMaskIntoConstraints = false
         profileImageView.contentMode = .scaleAspectFit
         view.addSubview(profileImageView)
         
-        // 닉네임 레이블
         nicknameLabel.font = UIFont.boldSystemFont(ofSize: 22)
         nicknameLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(nicknameLabel)
         
-        // 이메일 레이블
         emailLabel.font = UIFont.systemFont(ofSize: 18)
         emailLabel.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(emailLabel)
         
-        // 사용 이력 레이블
         usageLabel.text = "대여반납이력"
         usageLabel.font = UIFont.boldSystemFont(ofSize: 18)
         usageLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -126,6 +124,10 @@ class MypageViewController: UIViewController {
         let usageRow3 = createUsageRow(labelText: "칼로리", valueLabel: caloriesLabel)
         let usageRow4 = createUsageRow(labelText: "탄소절감", valueLabel: carbonReductionLabel)
         
+        view.addSubview(allRecordListButton)
+        allRecordListButton.translatesAutoresizingMaskIntoConstraints = false
+        
+        
         usageDetailsStack.addArrangedSubview(usageRow1)
         usageDetailsStack.addArrangedSubview(usageRow2)
         usageDetailsStack.addArrangedSubview(usageRow3)
@@ -134,14 +136,14 @@ class MypageViewController: UIViewController {
         usageDetailsContainer.addSubview(usageDetailsStack)
         
         enjoyButton.setTitle("즐겨찾기", for: .normal)
-        enjoyButton.backgroundColor = UIColor(red: 174/255, green: 225/255, blue: 223/255, alpha: 1)
+        enjoyButton.backgroundColor = UIColor(red: 148/255, green: 206/255, blue: 204/255, alpha: 1.0)
         enjoyButton.setTitleColor(.black, for: .normal)
         enjoyButton.layer.cornerRadius = 5
         enjoyButton.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(enjoyButton)
         
         logoutButton.setTitle("로그아웃", for: .normal)
-        logoutButton.backgroundColor = UIColor(red: 174/255, green: 225/255, blue: 223/255, alpha: 1)
+        logoutButton.backgroundColor = UIColor(red: 148/255, green: 206/255, blue: 204/255, alpha: 1.0)
         logoutButton.setTitleColor(.black, for: .normal)
         logoutButton.layer.cornerRadius = 5
         logoutButton.translatesAutoresizingMaskIntoConstraints = false
@@ -165,6 +167,9 @@ class MypageViewController: UIViewController {
             usageLabel.topAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: 40),
             usageLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             
+            allRecordListButton.topAnchor.constraint(equalTo: profileImageView.bottomAnchor, constant: 40),
+            allRecordListButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+            
             usageDetailsContainer.topAnchor.constraint(equalTo: usageLabel.bottomAnchor, constant: 10),
             usageDetailsContainer.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             usageDetailsContainer.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
@@ -177,12 +182,12 @@ class MypageViewController: UIViewController {
             
             enjoyButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             enjoyButton.trailingAnchor.constraint(equalTo: view.centerXAnchor, constant: -10),
-            enjoyButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
+            enjoyButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -50),
             enjoyButton.heightAnchor.constraint(equalToConstant: 50),
             
             logoutButton.leadingAnchor.constraint(equalTo: view.centerXAnchor, constant: 10),
             logoutButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            logoutButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
+            logoutButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -50),
             logoutButton.heightAnchor.constraint(equalToConstant: 50)
         ])
         

@@ -171,7 +171,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         extension MapViewController: MKMapViewDelegate {
             func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
                 guard let annotation = view.annotation as? BikeStationAnnotation else { return }
-                
+           
                 infoView.update(stationId: annotation.subtitle ?? "", stationName: annotation.title ?? "", availableBikes: annotation.availableBikes)
                 infoView.isHidden = false
             }
