@@ -22,12 +22,9 @@ class BikeMeasurementViewController: UIViewController {
 
     @IBOutlet weak var arrivedButton: UIButton!
     @IBOutlet weak var departButton: UIButton!
-    
     @IBOutlet weak var startBikeStation: UILabel!
     @IBOutlet weak var endBikeStation: UILabel!
 
-
-        
         var timer: Timer?
         var startTime: Date?
         var endTime: Date?
@@ -43,6 +40,7 @@ class BikeMeasurementViewController: UIViewController {
 
         override func viewDidLoad() {
             super.viewDidLoad()
+            arrivedButton.isEnabled = false
             setupNavigationBar()
             setupStopwatchLabel()
             setupMetricsLabels()
@@ -52,7 +50,6 @@ class BikeMeasurementViewController: UIViewController {
         }
         
         func setupNavigationBar() {
-            // Navigation bar 설정
             self.navigationController?.navigationBar.barTintColor = UIColor(red: 148/255, green: 206/255, blue: 204/255, alpha: 1.0)
             self.navigationItem.title = ""
             
@@ -89,7 +86,6 @@ class BikeMeasurementViewController: UIViewController {
         }
 
         func setupStopwatchLabel() {
-            // 스톱워치 레이블 설정
             stopwatchLabel.frame = CGRect(x: 0, y: 0, width: 199, height: 50)
             stopwatchLabel.textColor = .black
             stopwatchLabel.font = UIFont(name: "Jua-Regular", size: 40)
@@ -107,7 +103,6 @@ class BikeMeasurementViewController: UIViewController {
         }
         
         func setupMetricsLabels() {
-            // 메트릭스 레이블들 설정
             setupMetricLabel(label: usageTimeLabel, text: "이용시간: 0분", yPosition: 361)
             setupMetricLabel(label: distanceLabel, text: "거리: 0.00km", yPosition: 466)
             setupMetricLabel(label: calorieLabel, text: "칼로리: 0.0kcal", yPosition: 571)
@@ -115,7 +110,6 @@ class BikeMeasurementViewController: UIViewController {
         }
         
         func setupMetricLabel(label: UILabel, text: String, yPosition: CGFloat) {
-            // 각 메트릭스 레이블 설정 함수
             label.textColor = .black
             label.font = UIFont(name: "Jua-Regular", size: 20)
             label.text = text
@@ -130,9 +124,6 @@ class BikeMeasurementViewController: UIViewController {
         }
 
         func setupStartButton() {
-            // 출발하기 버튼 설정
-//            let startButton = UIButton(type: .system)
-    
             departButton.setTitle("출발하기", for: .normal)
             departButton.titleLabel?.font = UIFont(name: "Jua-Regular", size: 30)
             departButton.addTarget(self, action: #selector(startButtonTapped), for: .touchUpInside)
@@ -149,7 +140,6 @@ class BikeMeasurementViewController: UIViewController {
         }
 
         func setupStopButton() {
-            // 목적지 도착 버튼 설정
             arrivedButton.setTitle("목적지 도착", for: .normal)
             arrivedButton.setTitleColor(.black, for: .normal)
             arrivedButton.backgroundColor = UIColor(red: 148/255, green: 206/255, blue: 204/255, alpha: 1.0)
@@ -168,7 +158,6 @@ class BikeMeasurementViewController: UIViewController {
         }
 
         func fetchBikeStations() {
-            // Firestore에서 출발지와 도착지 데이터를 가져와 레이블 업데이트
             guard let user = Auth.auth().currentUser else {
                 print("사용자가 로그인되어 있지 않습니다.")
                 return
@@ -197,6 +186,7 @@ class BikeMeasurementViewController: UIViewController {
 
         @objc func startButtonTapped() {
             startStopwatch()
+            arrivedButton.isEnabled = true
             departButton.isHidden = true // 출발하기 버튼 숨기기
             navigationItem.hidesBackButton = true
             
@@ -208,28 +198,59 @@ class BikeMeasurementViewController: UIViewController {
         arrivedButton.isEnabled = false
         endTime = Date()
         
-        saveBikeRecordToFirebase(startTime: startTime, endTime: endTime) // 목적지 도착 시 Firebase에 데이터 저장
+        saveBikeRecordToFirebase(startTime: startTime, endTime: endTime)
         departButton.isHidden = true
         
+        resetBikeRecordInFirestore()
         
     }
 
+    func resetBikeRecordInFirestore() {
+        guard let user = Auth.auth().currentUser else {
+            print("User not logged in.")
+            return
+        }
+        
+        let docRef = db.collection("Users").document(user.uid)
+                         .collection("history").document("bikeList")
+                         .collection("1").document("record")
+        
+        let defaultStartLocation = "출발지를 설정해주세요"
+            let defaultEndLocation = "도착지를 설정해주세요"
+        let startTimestamp = Timestamp(date: Date())
+           let endTimestamp = Timestamp(date: Date())
+        
+        docRef.updateData([
+                "startLocation": defaultStartLocation,
+                "startTimestamp": startTimestamp,
+                "startType": "",
+                "endLocation": defaultEndLocation,
+                "endTimestamp": endTimestamp,
+                "endType": ""
+      
+            ]) { error in
+                if let error = error {
+                    print("Error updating document: \(error.localizedDescription)")
+                } else {
+                    print("Document successfully updated")
+                }
+            }
+        }
+    
+    
         func startStopwatch() {
-            // 스톱워치 시작
             timer?.invalidate()
             elapsedTime = 0.0
             timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(updateStopwatch), userInfo: nil, repeats: true)
         }
         
         @objc func updateStopwatch() {
-            // 스톱워치 업데이트
             elapsedTime += 1.0
             let hours = Int(elapsedTime) / 3600
             let minutes = (Int(elapsedTime) / 60) % 60
             let seconds = Int(elapsedTime) % 60
             stopwatchLabel.text = String(format: "%02d:%02d:%02d초", hours, minutes, seconds)
             
-            // 메트릭스 업데이트
             let totalSeconds = Int(elapsedTime)
             let totalMinutes = totalSeconds / 60
             
@@ -244,21 +265,15 @@ class BikeMeasurementViewController: UIViewController {
         }
         
         func stopStopwatch() {
-            // 스톱워치 정지
             timer?.invalidate()
             timer = nil
         }
         
         func saveBikeRecordToFirebase(startTime: Date?, endTime: Date?) {
-            // Firebase에 데이터 저장
             guard let user = Auth.auth().currentUser else {
                         print("User not logged in.")
                         return
                     }
-//            guard let userId = Auth.auth().currentUser?.uid else {
-//                print("User not logged in.")
-//                return
-//            }
 
             guard let startTime = startTime, let endTime = endTime else {
                     print("Start time or end time is nil.")
@@ -280,9 +295,6 @@ class BikeMeasurementViewController: UIViewController {
                         print("Bike record saved successfully!")
                     print("record: \(record)")
                     }
-            
-//            self.startTime = nil
-//            self.endTime = nil
             }
         }
     

@@ -80,6 +80,7 @@ class SelectedStationViewController: UIViewController {
             setupNavigationBar() // 상단바
             setupLayout()
             fetchLocations()
+            updateNextButtonState() // 초기 상태 설정
         }
 
         func setupNavigationBar() {
@@ -237,5 +238,17 @@ class SelectedStationViewController: UIViewController {
             // UI 업데이트
             departureStationLabel.text = cleanStartLocation.isEmpty ? "출발지를 설정해주세요" : cleanStartLocation
             arrivalStationLabel.text = cleanEndLocation.isEmpty ? "도착지를 설정해주세요" : cleanEndLocation
+            
+            updateNextButtonState()
         }
+    
+    func updateNextButtonState() {
+           if departureStationLabel.text != "출발지를 설정해주세요" && arrivalStationLabel.text != "도착지를 설정해주세요" {
+               nextButton.isEnabled = true
+           } else {
+               nextButton.isEnabled = false
+           }
+       }
+
+    
     }

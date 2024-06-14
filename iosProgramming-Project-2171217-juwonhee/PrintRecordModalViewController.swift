@@ -16,27 +16,19 @@ class PrintRecordModalViewController: UIViewController {
     @IBOutlet weak var carbonReductionLabel: UILabel!
     @IBOutlet weak var caloriesLabel: UILabel!
     @IBOutlet weak var distanceLabel: UILabel!
-
     @IBOutlet weak var startBikeStationLabel: UILabel!
     @IBOutlet weak var endBikeStationLabel: UILabel!
-    
     @IBOutlet weak var startTimeLabel: UILabel!
     @IBOutlet weak var endTimeLabel: UILabel!
     
-    
-
-        
-        // MARK: - Properties
         private let db = Firestore.firestore()
         private var bikeRecords: [BikeRecord] = []
             
-        // MARK: - Lifecycle Methods
         override func viewDidLoad() {
             super.viewDidLoad()
             fetchBikeRecords()
         }
-            
-        // MARK: - Firestore Interaction
+
         func fetchBikeRecords() {
             guard let user = Auth.auth().currentUser else {
                 print("사용자가 로그인되어 있지 않습니다.")
@@ -68,15 +60,10 @@ class PrintRecordModalViewController: UIViewController {
                        let carbonReduction = recordData["carbonReduction"] as? Double,
                        let startLocation = recordData["startLocation"] as? String,
                        let endLocation = recordData["endLocation"] as? String,
-//                       let startTimeStamp = recordData["startTime"] as? String,
-//                       let endTimeStamp = recordData["endTime"] as? String{
                        let startTimeStamp = recordData["startTime"] as? Timestamp,
                        let endTimeStamp = recordData["endTime"] as? Timestamp {
-                        
-                        let startTime = startTimeStamp.dateValue()
-                        let endTime = endTimeStamp.dateValue()
-                        
-                  
+                       let startTime = startTimeStamp.dateValue()
+                       let endTime = endTimeStamp.dateValue()
                         
                         let record = BikeRecord(
                             usageTime: usageTime,
@@ -97,7 +84,6 @@ class PrintRecordModalViewController: UIViewController {
             }
         }
             
-        // MARK: - UI Update
         func updateUI() {
             guard let latestRecord = bikeRecords.last else {
                 print("자전거 기록이 없습니다.")
@@ -112,9 +98,6 @@ class PrintRecordModalViewController: UIViewController {
                 self.startBikeStationLabel.text = latestRecord.startLocation
                 self.endBikeStationLabel.text = latestRecord.endLocation
                 
-//                self.startTimeLabel.text = latestRecord.startTime
-//                self.endTimeLabel.text =  latestRecord.endTime
-//
                 let dateFormatter = DateFormatter()
                 dateFormatter.dateFormat = "yyyy년 M월 d일 a h시 m분 s초"
                 dateFormatter.timeZone = TimeZone.current

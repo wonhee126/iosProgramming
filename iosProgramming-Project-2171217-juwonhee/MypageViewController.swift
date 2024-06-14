@@ -4,13 +4,17 @@
 //
 //  Created by juwonhee on 6/2/24.
 //
+
+
 import UIKit
 import FirebaseAuth
 import FirebaseFirestore
+import Firebase
 
 class MypageViewController: UIViewController {
     
-    // UI 요소들
+    let db = Firestore.firestore()
+    
     let profileImageView = UIImageView()
     let nicknameLabel = UILabel()
     let emailLabel = UILabel()
@@ -28,7 +32,6 @@ class MypageViewController: UIViewController {
         super.viewDidLoad()
         setupNavigationBar()
         
-        // 로그인 여부에 따라 UI 설정
         if Auth.auth().currentUser != nil {
             // 로그인된 상태
             setupUI()
@@ -53,7 +56,7 @@ class MypageViewController: UIViewController {
         
         let titleLabel = UILabel()
         titleLabel.text = "EcoBike"
-        titleLabel.font = UIFont.systemFont(ofSize: 10)
+        titleLabel.font = UIFont.systemFont(ofSize: 8)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         
         let stackView = UIStackView(arrangedSubviews: [imageView, titleLabel])
@@ -68,19 +71,18 @@ class MypageViewController: UIViewController {
             stackView.centerXAnchor.constraint(equalTo: titleView.centerXAnchor),
             stackView.centerYAnchor.constraint(equalTo: titleView.centerYAnchor),
             
-            imageView.widthAnchor.constraint(equalToConstant: 40),
-            imageView.heightAnchor.constraint(equalToConstant: 40)
+            imageView.widthAnchor.constraint(equalToConstant: 36),
+            imageView.heightAnchor.constraint(equalToConstant: 36)
         ])
         
         self.navigationItem.titleView = titleView
     }
 
     func setupUI() {
-        // 사용자 정보가 있을 때만 UI 설정을 진행합니다.
         view.backgroundColor = .white
         
         // 프로필 이미지
-        profileImageView.image = UIImage(named: "EcoBike") // 실제 이미지 이름으로 교체
+        profileImageView.image = UIImage(named: "EcoBike")
         profileImageView.translatesAutoresizingMaskIntoConstraints = false
         profileImageView.contentMode = .scaleAspectFit
         view.addSubview(profileImageView)
@@ -102,14 +104,12 @@ class MypageViewController: UIViewController {
         usageLabel.textAlignment = .left
         view.addSubview(usageLabel)
         
-        // 사용 이력 컨테이너
         usageDetailsContainer.layer.borderWidth = 3.0
         usageDetailsContainer.layer.borderColor = UIColor(red: 174/255, green: 225/255, blue: 223/255, alpha: 1).cgColor
         usageDetailsContainer.layer.cornerRadius = 10
         usageDetailsContainer.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(usageDetailsContainer)
         
-        // 사용 이력 세부 정보
         let usageDetailsStack = UIStackView()
         usageDetailsStack.axis = .vertical
         usageDetailsStack.alignment = .fill
@@ -133,7 +133,6 @@ class MypageViewController: UIViewController {
         
         usageDetailsContainer.addSubview(usageDetailsStack)
         
-        // 버튼들
         enjoyButton.setTitle("즐겨찾기", for: .normal)
         enjoyButton.backgroundColor = UIColor(red: 174/255, green: 225/255, blue: 223/255, alpha: 1)
         enjoyButton.setTitleColor(.black, for: .normal)
@@ -149,7 +148,6 @@ class MypageViewController: UIViewController {
         logoutButton.addTarget(self, action: #selector(logoutButtonTapped), for: .touchUpInside) // 로그아웃 버튼 액션 추가
         view.addSubview(logoutButton)
         
-        // 제약 조건
         NSLayoutConstraint.activate([
             profileImageView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 10),
             profileImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
@@ -212,12 +210,6 @@ class MypageViewController: UIViewController {
     }
     
     func fetchUserInfo() {
-//        guard let user = Auth.auth().currentUser else {
-//            print("No user is logged in")
-//            // 사용자가 로그인되지 않은 경우 로그인 버튼만 보이도록 설정
-//            setupLoginButton()
-//            return
-//        }
         let user = Auth.auth().currentUser!
         let email = user.email ?? "Unknown Email"
         let uid = user.uid
@@ -246,6 +238,8 @@ class MypageViewController: UIViewController {
     }
 
     @objc func logoutButtonTapped() {
+        print("here!!!11111")
+        resetBikeRecordInFirestore()
         do {
             try Auth.auth().signOut()
             navigateToLoginScreen()
@@ -264,7 +258,6 @@ class MypageViewController: UIViewController {
     }
     
     func setupLoginButton() {
-        // 로그인 버튼 설정
         loginButton.setTitle("로그인", for: .normal)
         loginButton.backgroundColor = UIColor(red: 174/255, green: 225/255, blue: 223/255, alpha: 1)
         loginButton.setTitleColor(.black, for: .normal)
@@ -274,7 +267,6 @@ class MypageViewController: UIViewController {
         
         loginButton.addTarget(self, action: #selector(loginButtonTapped), for: .touchUpInside)
         
-        // 제약 조건
         NSLayoutConstraint.activate([
             loginButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
             loginButton.centerYAnchor.constraint(equalTo: view.centerYAnchor),
@@ -284,7 +276,42 @@ class MypageViewController: UIViewController {
     }
     
     @objc func loginButtonTapped() {
+
         navigateToLoginScreen()
     }
+    
+    func resetBikeRecordInFirestore() {
+        print("here!!22222")
+        guard let user = Auth.auth().currentUser else {
+            print("User not logged in.")
+            return
+        }
+        
+        let docRef = db.collection("Users").document(user.uid)
+                         .collection("history").document("bikeList")
+                         .collection("1").document("record")
+        
+        let defaultStartLocation = "출발지를 설정해주세요"
+            let defaultEndLocation = "도착지를 설정해주세요"
+        let startTimestamp = Timestamp(date: Date())
+           let endTimestamp = Timestamp(date: Date())
+        print("here!!333333")
+        docRef.updateData([
+                "startLocation": defaultStartLocation,
+                "startTimestamp": startTimestamp,
+                "startType": "",
+                "endLocation": defaultEndLocation,
+                "endTimestamp": endTimestamp,
+                "endType": ""
+      
+            ]) { error in
+                if let error = error {
+                    print("Error updating document: \(error.localizedDescription)")
+                } else {
+                    print("Document successfully updated")
+                }
+            }
+        }
+    
 }
 

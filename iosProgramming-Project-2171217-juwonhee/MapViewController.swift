@@ -7,13 +7,8 @@ import FirebaseFirestore
 
 class MapViewController: UIViewController, CLLocationManagerDelegate {
     
-
-
-
-
     @IBOutlet weak var mapView: MKMapView!
     
-
             let locationManager = CLLocationManager()
             var initialLocationSet = false
             let initialCoordinates = CLLocationCoordinate2D(latitude: 37.499166, longitude: 127.159291)

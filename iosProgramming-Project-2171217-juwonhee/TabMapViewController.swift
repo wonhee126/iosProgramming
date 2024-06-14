@@ -16,7 +16,7 @@ class TabMapViewController: UIViewController, CLLocationManagerDelegate {
     let locationManager = CLLocationManager()
     var initialLocationSet = false
     let initialCoordinates = CLLocationCoordinate2D(latitude: 37.499166, longitude: 127.159291)
-    let regionRadius: CLLocationDistance = 500 // 원하는 반경 크기 설정
+    let regionRadius: CLLocationDistance = 500
     
     let infoView = BikeStationInfoView()
 
@@ -31,7 +31,6 @@ class TabMapViewController: UIViewController, CLLocationManagerDelegate {
     }
     
     func setupNavigationBar() {
-        // 네비게이션 바 설정
         self.navigationController?.navigationBar.barTintColor = UIColor(red: 148/255, green: 206/255, blue: 204/255, alpha: 1.0)
         self.navigationItem.title = ""
         
@@ -45,7 +44,7 @@ class TabMapViewController: UIViewController, CLLocationManagerDelegate {
         
         let titleLabel = UILabel()
         titleLabel.text = "EcoBike"
-        titleLabel.font = UIFont.systemFont(ofSize: 10)
+        titleLabel.font = UIFont.systemFont(ofSize: 8)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         
         let stackView = UIStackView(arrangedSubviews: [imageView, titleLabel])
@@ -65,21 +64,16 @@ class TabMapViewController: UIViewController, CLLocationManagerDelegate {
         ])
         
         self.navigationItem.titleView = titleView
-        
-//        let rightButton = UIBarButtonItem(title: "즐겨찾기", style: .plain, target: nil, action: nil)
-//        rightButton.tintColor = .black
-//        self.navigationItem.rightBarButtonItem = rightButton
     }
 
 
     func setupMapView() {
         mapView.delegate = self
         
-        // Setup map view
-        mapView.mapType = .standard // 표준 지도 설정
+    
+        mapView.mapType = .standard
         mapView.showsUserLocation = true
         
-        // Setup location manager
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
@@ -115,11 +109,9 @@ class TabMapViewController: UIViewController, CLLocationManagerDelegate {
         }
     }
 
-    // CLLocationManagerDelegate method
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         guard let location = locations.last else { return }
         
-        // 최초 위치 설정을 덮어쓰지 않도록 함
         if !initialLocationSet {
             initialLocationSet = true
             let userLocation = CLLocationCoordinate2D(latitude: location.coordinate.latitude,
@@ -147,7 +139,6 @@ class TabMapViewController: UIViewController, CLLocationManagerDelegate {
         present(alert, animated: true, completion: nil)
     }
 
-    // Center map on given location
     func centerMapOnLocation(location: CLLocationCoordinate2D) {
         let coordinateRegion = MKCoordinateRegion(center: location, latitudinalMeters: regionRadius, longitudinalMeters: regionRadius)
         mapView.setRegion(coordinateRegion, animated: true)
@@ -213,8 +204,6 @@ extension TabMapViewController: MKMapViewDelegate {
         
         return view
     }
-    
-
 }
 
 

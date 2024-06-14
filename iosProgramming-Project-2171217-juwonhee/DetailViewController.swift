@@ -20,9 +20,6 @@ class DetailViewController: UIViewController {
     @IBOutlet weak var startTimeLabel: UILabel!
     @IBOutlet weak var endTimeLabel: UILabel!
     
-
-
-        
         override func viewDidLoad() {
             super.viewDidLoad()
 
@@ -46,10 +43,6 @@ class DetailViewController: UIViewController {
             dateFormatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
             
             dateFormatter.timeZone = TimeZone.current
-            
-            
-//            startTimeLabel.text = "출발 시각: \(record.startTime)"
-//            endTimeLabel.text = "도착 시각: \(record.endTime)"
             
             startTimeLabel.text = "출발 시각: \(dateFormatter.string(from: record.startTime))"
             endTimeLabel.text = "도착 시각: \(dateFormatter.string(from: record.endTime))"
