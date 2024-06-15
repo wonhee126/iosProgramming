@@ -90,11 +90,16 @@ class PrintRecordModalViewController: UIViewController {
                 return
             }
                 
+            startBikeStationLabel.isHidden = true
+            endBikeStationLabel.isHidden = true
+            startTimeLabel.isHidden = true
+            endTimeLabel.isHidden = true
+            
             DispatchQueue.main.async {
-                self.usageTimeLabel.text = "이용 시간: \(latestRecord.usageTime) 분"
-                self.distanceLabel.text = String(format: "거리: %.2f km", latestRecord.distance)
-                self.caloriesLabel.text = String(format: "칼로리 소모: %.1f kcal", latestRecord.calories)
-                self.carbonReductionLabel.text = String(format: "탄소 절감: %.3f kg", latestRecord.carbonReduction)
+                self.usageTimeLabel.text = "\(latestRecord.usageTime) 분 동안"
+                self.distanceLabel.text = String(format: "%.2f km를 이동하여", latestRecord.distance)
+                self.caloriesLabel.text = String(format: "%.1f kcal를 소모하였습니다.", latestRecord.calories)
+                self.carbonReductionLabel.text = String(format: "%.3f kg이 탄소절감 되었습니다.", latestRecord.carbonReduction)
                 self.startBikeStationLabel.text = latestRecord.startLocation
                 self.endBikeStationLabel.text = latestRecord.endLocation
                 
@@ -104,6 +109,8 @@ class PrintRecordModalViewController: UIViewController {
                 
                 self.startTimeLabel.text = dateFormatter.string(from: latestRecord.startTime)
                 self.endTimeLabel.text = dateFormatter.string(from: latestRecord.endTime)
+                
+                
             }
         }
     }

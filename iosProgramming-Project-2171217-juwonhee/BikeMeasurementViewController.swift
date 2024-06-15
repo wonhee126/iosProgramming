@@ -35,6 +35,7 @@ class BikeMeasurementViewController: UIViewController {
         let distanceLabel = UILabel()
         let calorieLabel = UILabel()
         let carbonReductionLabel = UILabel()
+        let arrowLabel = UILabel()
 
         let db = Firestore.firestore()
 
@@ -86,58 +87,80 @@ class BikeMeasurementViewController: UIViewController {
         }
 
         func setupStopwatchLabel() {
-            stopwatchLabel.frame = CGRect(x: 0, y: 0, width: 199, height: 50)
+//            stopwatchLabel.frame = CGRect(x: 0, y: 0, width: 200, height: 50)
             stopwatchLabel.textColor = .black
             stopwatchLabel.font = UIFont(name: "Jua-Regular", size: 40)
+            stopwatchLabel.font = UIFont.boldSystemFont(ofSize: 48) // 볼드 처리
             stopwatchLabel.text = "00:00:00초"
             
             let parent = self.view!
             parent.addSubview(stopwatchLabel)
             stopwatchLabel.translatesAutoresizingMaskIntoConstraints = false
-            NSLayoutConstraint.activate([
-                stopwatchLabel.widthAnchor.constraint(equalToConstant: 199),
-                stopwatchLabel.heightAnchor.constraint(equalToConstant: 50),
-                stopwatchLabel.leadingAnchor.constraint(equalTo: parent.leadingAnchor, constant: 115),
-                stopwatchLabel.topAnchor.constraint(equalTo: parent.topAnchor, constant: 242)
-            ])
-        }
-        
-        func setupMetricsLabels() {
-            setupMetricLabel(label: usageTimeLabel, text: "이용시간: 0분", yPosition: 361)
-            setupMetricLabel(label: distanceLabel, text: "거리: 0.00km", yPosition: 466)
-            setupMetricLabel(label: calorieLabel, text: "칼로리: 0.0kcal", yPosition: 571)
-            setupMetricLabel(label: carbonReductionLabel, text: "탄소절감: 0.0kg", yPosition: 676)
-        }
-        
-        func setupMetricLabel(label: UILabel, text: String, yPosition: CGFloat) {
-            label.textColor = .black
-            label.font = UIFont(name: "Jua-Regular", size: 20)
-            label.text = text
+
             
-            let parent = self.view!
-            parent.addSubview(label)
-            label.translatesAutoresizingMaskIntoConstraints = false
+            NSLayoutConstraint.activate([
+                stopwatchLabel.centerXAnchor.constraint(equalTo: parent.centerXAnchor),
+                stopwatchLabel.centerYAnchor.constraint(equalTo: parent.centerYAnchor, constant: -50),
+                 stopwatchLabel.heightAnchor.constraint(equalToConstant: 50),
+               
+             ])
+        }
+        
+    func setupMetricsLabels() {
+        setupMetricLabel(label: usageTimeLabel, text: "이용시간: 0분", yPosition: 480, isLeftAligned: true)
+        setupMetricLabel(label: distanceLabel, text: "거리: 0.00km", yPosition: 530, isLeftAligned: true)
+        setupMetricLabel(label: calorieLabel, text: "칼로리: 0.0kcal", yPosition: 480, isLeftAligned: false)
+        setupMetricLabel(label: carbonReductionLabel, text: "탄소절감: 0.0kg", yPosition: 530, isLeftAligned: false)
+    }
+
+    func setupMetricLabel(label: UILabel, text: String, yPosition: CGFloat, isLeftAligned: Bool) {
+        label.textColor = .black
+        label.font = UIFont(name: "Jua-Regular", size: 20)
+        label.font = UIFont.boldSystemFont(ofSize: 20)
+        label.text = text
+        
+        let parent = self.view!
+        parent.addSubview(label)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        
+        if isLeftAligned {
             NSLayoutConstraint.activate([
                 label.leadingAnchor.constraint(equalTo: parent.leadingAnchor, constant: 20),
                 label.topAnchor.constraint(equalTo: parent.topAnchor, constant: yPosition)
             ])
-        }
-
-        func setupStartButton() {
-            departButton.setTitle("출발하기", for: .normal)
-            departButton.titleLabel?.font = UIFont(name: "Jua-Regular", size: 30)
-            departButton.addTarget(self, action: #selector(startButtonTapped), for: .touchUpInside)
-            
-            let parent = self.view!
-            parent.addSubview(departButton)
-            departButton.translatesAutoresizingMaskIntoConstraints = false
+        } else {
             NSLayoutConstraint.activate([
-                departButton.widthAnchor.constraint(equalToConstant: 200),
-                departButton.heightAnchor.constraint(equalToConstant: 50),
-                departButton.centerXAnchor.constraint(equalTo: parent.centerXAnchor),
-                departButton.topAnchor.constraint(equalTo: parent.topAnchor, constant: 100)
+                label.trailingAnchor.constraint(equalTo: parent.trailingAnchor, constant: -20),
+                label.topAnchor.constraint(equalTo: parent.topAnchor, constant: yPosition)
             ])
         }
+    }
+
+
+    func setupStartButton() {
+        departButton.setTitle("출발하기", for: .normal)
+        departButton.titleLabel?.font = UIFont(name: "Jua-Regular", size: 30)
+        departButton.setTitleColor(.black, for: .normal)
+        departButton.backgroundColor = UIColor(red: 148/255, green: 206/255, blue: 204/255, alpha: 1.0)
+        departButton.addTarget(self, action: #selector(startButtonTapped), for: .touchUpInside)
+        
+
+        
+        let parent = self.view!
+        parent.addSubview(departButton)
+        
+        departButton.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            
+            departButton.leadingAnchor.constraint(equalTo: parent.leadingAnchor),
+            departButton.trailingAnchor.constraint(equalTo: parent.trailingAnchor),
+            departButton.topAnchor.constraint(equalTo: parent.topAnchor, constant: 120),
+            departButton.heightAnchor.constraint(equalToConstant: 50),
+            
+        ])
+    }
+
 
         func setupStopButton() {
             arrivedButton.setTitle("목적지 도착", for: .normal)
@@ -151,8 +174,8 @@ class BikeMeasurementViewController: UIViewController {
             arrivedButton.translatesAutoresizingMaskIntoConstraints = false
             NSLayoutConstraint.activate([
                 arrivedButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20),
-                arrivedButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-                arrivedButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+                arrivedButton.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+                arrivedButton.trailingAnchor.constraint(equalTo: view.trailingAnchor),
                 arrivedButton.heightAnchor.constraint(equalToConstant: 50),
             ])
         }
