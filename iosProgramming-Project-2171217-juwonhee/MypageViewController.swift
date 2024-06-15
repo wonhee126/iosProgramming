@@ -11,9 +11,10 @@ import FirebaseAuth
 import FirebaseFirestore
 import Firebase
 
-class MypageViewController: UIViewController {
+class MypageViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     let db = Firestore.firestore()
+    
     
     @IBOutlet weak var allRecordListButton: UIButton!
     @IBOutlet weak var enjoyButton: UIButton!
@@ -34,6 +35,8 @@ class MypageViewController: UIViewController {
         super.viewDidLoad()
         setupNavigationBar()
         
+
+        
         if Auth.auth().currentUser != nil {
             // 로그인된 상태
             setupUI()
@@ -44,8 +47,31 @@ class MypageViewController: UIViewController {
             allRecordListButton.isHidden = true
             enjoyButton.isHidden = true
         }
+        
+        // 프로필 이미지뷰에 탭 제스처 추가
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(profileImageViewTapped))
+        profileImageView.addGestureRecognizer(tapGesture)
+        profileImageView.isUserInteractionEnabled = true
+        
     }
-    
+    @objc func profileImageViewTapped() {
+           let imagePickerController = UIImagePickerController()
+           imagePickerController.delegate = self
+           imagePickerController.sourceType = .photoLibrary // 앨범에서 사진 선택
+           
+           present(imagePickerController, animated: true, completion: nil)
+       }
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+            if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+                profileImageView.image = pickedImage
+            }
+            
+            dismiss(animated: true, completion: nil)
+        }
+        
+        func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+            dismiss(animated: true, completion: nil)
+        }
     func setupNavigationBar() {
         self.navigationController?.navigationBar.barTintColor = UIColor(red: 148/255, green: 206/255, blue: 204/255, alpha: 1.0)
         self.navigationItem.title = ""
@@ -216,6 +242,57 @@ class MypageViewController: UIViewController {
         return rowStack
     }
     
+    func fetchUserHistory() {
+        guard let user = Auth.auth().currentUser else {
+            print("User not logged in.")
+            return
+        }
+        
+        let historyRef = db.collection("history").document("bikelist")
+            .collection(user.email!).getDocuments { (querySnapshot, error) in
+            if let error = error {
+                print("Error fetching user history: \(error.localizedDescription)")
+                return
+            }
+            
+            guard let querySnapshot = querySnapshot else {
+                print("No documents found.")
+                return
+            }
+            
+            var totalUsageTime: Int = 0
+            var totalDistance: Double = 0.0
+            var totalCalories: Double = 0.0
+            var totalCarbonReduction: Double = 0.0
+            
+            for document in querySnapshot.documents {
+                let data = document.data()
+                if let usageTime = data["usageTime"] as? Int {
+                    totalUsageTime += usageTime
+                }
+                if let distance = data["distance"] as? Double {
+                    totalDistance += distance
+                }
+                if let calories = data["calories"] as? Double {
+                    totalCalories += calories
+                }
+                if let carbonReduction = data["carbonReduction"] as? Double {
+                    totalCarbonReduction += carbonReduction
+                }
+            }
+            
+            // Update UI on the main thread
+            DispatchQueue.main.async {
+                self.usageTimeLabel.text = "\(totalUsageTime) 분"
+                self.distanceLabel.text = String(format: "%.2f km", totalDistance)
+                self.caloriesLabel.text = String(format: "%.2f kcal", totalCalories)
+                self.carbonReductionLabel.text = String(format: "%.2f kg", totalCarbonReduction)
+            }
+        }
+    }
+
+    
+    
     func fetchUserInfo() {
         let user = Auth.auth().currentUser!
         let email = user.email ?? "Unknown Email"
@@ -227,6 +304,7 @@ class MypageViewController: UIViewController {
                 let data = document.data()
                 let nickname = data?["nickname"] as? String ?? "Unknown Nickname"
                 self.updateUI(email: email, nickname: nickname)
+                self.fetchUserHistory()
             } else {
                 print("Document does not exist")
                 if let error = error {
