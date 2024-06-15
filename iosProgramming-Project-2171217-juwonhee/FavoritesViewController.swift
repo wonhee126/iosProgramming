@@ -98,7 +98,6 @@ class FavoritesViewController: UIViewController {
             headerView.addSubview(headerLabel)
             
             NSLayoutConstraint.activate([
-                // Header View Constraints
                 headerView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
                 headerView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
                 headerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
@@ -202,7 +201,6 @@ class FavoritesViewController: UIViewController {
 
         func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
             _ = favoriteBikeStations[indexPath.row]
-            // Optional: Handle selection action if needed
             tableView.deselectRow(at: indexPath, animated: true)
         }
     }

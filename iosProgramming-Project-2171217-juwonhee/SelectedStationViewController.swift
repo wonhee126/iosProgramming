@@ -168,6 +168,8 @@ class SelectedStationViewController: UIViewController {
             ])
         }
 
+
+    
         func fetchLocations() {
             guard let user = Auth.auth().currentUser else {
                 print("사용자가 로그인되어 있지 않습니다.")
@@ -190,6 +192,8 @@ class SelectedStationViewController: UIViewController {
                 }
             }
         }
+    
+
 
         func initializeUserData(for userId: String) {
             let docRef = db.collection("Users").document(userId).collection("history").document("bikeList").collection("1").document("record")

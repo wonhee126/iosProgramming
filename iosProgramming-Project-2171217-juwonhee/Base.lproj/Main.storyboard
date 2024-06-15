@@ -69,7 +69,7 @@
                                     <color key="baseForegroundColor" systemColor="labelColor"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <segue destination="RXS-3L-uDn" kind="show" identifier="SelectedStationViewController" id="yHF-l5-Igd"/>
+                                    <segue destination="RXS-3L-uDn" kind="show" id="rbK-eG-gTw"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -502,7 +502,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="kUb-jz-KKN">
-                                <rect key="frame" x="10" y="203" width="373" height="507"/>
+                                <rect key="frame" x="10" y="203" width="373" height="556"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </tableView>
                         </subviews>
@@ -537,7 +537,7 @@
                     <nil name="viewControllers"/>
                     <connections>
                         <segue destination="tVv-74-I0Z" kind="relationship" relationship="rootViewController" id="pag-a2-o3t"/>
-                        <segue destination="EVx-ha-aYw" kind="show" id="51B-9o-pJA"/>
+                        <segue destination="EVx-ha-aYw" kind="show" identifier="" id="51B-9o-pJA"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mWd-C7-vUl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -653,8 +653,8 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="wgd-1m-xnd"/>
-        <segue reference="yHF-l5-Igd"/>
+        <segue reference="QCX-Vr-5S9"/>
+        <segue reference="rbK-eG-gTw"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="bikeIcon" width="230" height="243"/>
