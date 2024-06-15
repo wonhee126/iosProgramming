@@ -27,7 +27,6 @@ class MypageViewController: UIViewController {
     let caloriesLabel = UILabel()
     let carbonReductionLabel = UILabel()
     let usageDetailsContainer = UIView()
-//    let enjoyButton = UIButton()
     let logoutButton = UIButton()
     let loginButton = UIButton()
     

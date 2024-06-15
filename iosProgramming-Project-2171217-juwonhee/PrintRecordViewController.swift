@@ -14,7 +14,23 @@ class PrintRecordViewController: UIViewController {
     
     @IBOutlet weak var bikeRecordTableView: UITableView!
 
+    let headerView: UIView = {
+        let view = UIView()
+        view.frame = CGRect(x: 0, y: 0, width: 356.75, height: 66)
+        view.backgroundColor = UIColor(red: 174/255, green: 225/255, blue: 223/255, alpha: 1)
+        return view
+    }()
 
+    let headerLabel: UILabel = {
+        let label = UILabel()
+        label.frame = CGRect(x: 0, y: 0, width: 162, height: 38)
+        label.textColor = .black
+        label.font = UIFont(name: "Jua-Regular", size: 30)
+        label.textAlignment = .center
+        label.text = "대여 반납 목록"
+        label.font = UIFont.boldSystemFont(ofSize: 20)
+        return label
+    }()
     
         private var bikeRecords: [BikeRecord] = []
         private let db = Firestore.firestore()
@@ -22,15 +38,75 @@ class PrintRecordViewController: UIViewController {
         
         override func viewDidLoad() {
             super.viewDidLoad()
-            
+            setupNavigationBar()
             configureTableView()
             fetchBikeRecords()
+            setupHeaderView()
         }
         
         deinit {
             listener?.remove()
         }
         
+    
+    private func setupHeaderView() {
+        headerView.translatesAutoresizingMaskIntoConstraints = false
+        headerLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        view.addSubview(headerView)
+        headerView.addSubview(headerLabel)
+        
+        NSLayoutConstraint.activate([
+            // Header View Constraints
+            headerView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor, constant: 20),
+            headerView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
+            headerView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+            headerView.heightAnchor.constraint(equalToConstant: 66),
+            
+     
+            headerLabel.centerXAnchor.constraint(equalTo: headerView.centerXAnchor),
+            headerLabel.centerYAnchor.constraint(equalTo: headerView.centerYAnchor),
+            headerLabel.widthAnchor.constraint(equalToConstant: 162),
+            headerLabel.heightAnchor.constraint(equalToConstant: 38)
+        ])
+    }
+    
+    func setupNavigationBar() {
+        self.navigationController?.navigationBar.barTintColor = UIColor(red: 148/255, green: 206/255, blue: 204/255, alpha: 1.0)
+        self.navigationItem.title = ""
+        
+        let titleView = UIView()
+        titleView.translatesAutoresizingMaskIntoConstraints = false
+        
+        let logoImage = UIImage(named: "NavigatorIcon")
+        let imageView = UIImageView(image: logoImage)
+        imageView.contentMode = .scaleAspectFit
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        
+        let titleLabel = UILabel()
+        titleLabel.text = "EcoBike"
+        titleLabel.font = UIFont.systemFont(ofSize: 8)
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        let stackView = UIStackView(arrangedSubviews: [imageView, titleLabel])
+        stackView.axis = .vertical
+        stackView.alignment = .center
+        stackView.spacing = 2
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        titleView.addSubview(stackView)
+        
+        NSLayoutConstraint.activate([
+            stackView.centerXAnchor.constraint(equalTo: titleView.centerXAnchor),
+            stackView.centerYAnchor.constraint(equalTo: titleView.centerYAnchor),
+            
+            imageView.widthAnchor.constraint(equalToConstant: 36),
+            imageView.heightAnchor.constraint(equalToConstant: 36)
+        ])
+        
+        self.navigationItem.titleView = titleView
+    }
+    
         func configureTableView() {
             bikeRecordTableView.delegate = self
             bikeRecordTableView.dataSource = self
