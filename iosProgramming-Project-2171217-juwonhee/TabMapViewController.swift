@@ -28,7 +28,9 @@ class TabMapViewController: UIViewController, CLLocationManagerDelegate {
         setupInfoView()
         checkLocationAuthorizationStatus()
         loadBikeStations()
+
     }
+
     
     func setupNavigationBar() {
         self.navigationController?.navigationBar.barTintColor = UIColor(red: 148/255, green: 206/255, blue: 204/255, alpha: 1.0)
@@ -175,6 +177,11 @@ extension TabMapViewController: MKMapViewDelegate {
         // Update and show the info view with annotation details
         infoView.update(stationId: annotation.subtitle ?? "", stationName: annotation.title ?? "", availableBikes: annotation.availableBikes)
         infoView.isHidden = false
+        
+        if let tapView = view as? BikeStationAnnotationTapView {
+            tapView.checkIfFavoritedAndUpdateUI(bikeStation: annotation)
+        }
+        
     }
     
     func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {

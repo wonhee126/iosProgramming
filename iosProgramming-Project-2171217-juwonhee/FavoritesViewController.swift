@@ -25,10 +25,16 @@ class FavoritesViewController: UIViewController {
         favoriteTableView.register(UITableViewCell.self, forCellReuseIdentifier: "FavoriteCell")
         favoriteTableView.dataSource = self
         favoriteTableView.delegate = self
+
+
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        loadFavorites()
+    }
+
+    @objc private func handleFavoritesUpdated(_ notification: Notification) {
         loadFavorites()
     }
 
@@ -58,6 +64,7 @@ class FavoritesViewController: UIViewController {
                 } ?? []
 
                 self?.favoriteTableView.reloadData()
+                
             }
         }
     }
@@ -92,8 +99,10 @@ extension FavoritesViewController: UITableViewDataSource {
                 if let error = error {
                     print("Error removing document: \(error)")
                 } else {
+                    
                     self?.favoriteBikeStations.remove(at: indexPath.row)
                     tableView.deleteRows(at: [indexPath], with: .fade)
+                   
                 }
             }
         }
@@ -122,4 +131,3 @@ extension FavoritesViewController: UITableViewDelegate {
         tableView.deselectRow(at: indexPath, animated: true)
     }
 }
-

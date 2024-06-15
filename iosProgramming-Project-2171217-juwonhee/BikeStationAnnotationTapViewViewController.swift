@@ -5,6 +5,7 @@
 //  Created by juwonhee on 6/13/24.
 //
 
+
 import MapKit
 import Firebase
 import FirebaseAuth
@@ -20,12 +21,12 @@ class BikeStationAnnotationTapView: MKMarkerAnnotationView {
             guard let bikeStation = newValue as? BikeStationAnnotation else { return }
             canShowCallout = true
 
-            // Create a star button
+
             starButton = UIButton(type: .custom)
             starButton?.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
             starButton?.addTarget(self, action: #selector(toggleStar), for: .touchUpInside)
 
-            // Check if the bike station is favorited
+   
             checkIfFavoritedAndUpdateUI(bikeStation: bikeStation)
 
             rightCalloutAccessoryView = starButton
@@ -47,9 +48,11 @@ class BikeStationAnnotationTapView: MKMarkerAnnotationView {
                     if let error = error {
                         print("Error removing document: \(error)")
                     } else {
-                        print("Removed from favorites")
+                        // 로그 출력
+                        print("BikeStationAnnotationTapViewController Deleted favorite bike station: \(bikeStation.title ?? "")")
+
                         self?.setStarState(isStarred: false)
-                        self?.updateTableView() // 즐겨찾기 상태 변경 후 테이블뷰 업데이트
+                        self?.updateTableView()
                     }
                 }
             } else {
@@ -68,7 +71,7 @@ class BikeStationAnnotationTapView: MKMarkerAnnotationView {
                     } else {
                         print("Added to favorites")
                         self?.setStarState(isStarred: true)
-                        self?.updateTableView() // 즐겨찾기 상태 변경 후 테이블뷰 업데이트
+                        self?.updateTableView()
                     }
                 }
             }
@@ -102,7 +105,7 @@ class BikeStationAnnotationTapView: MKMarkerAnnotationView {
         }
     }
 
-    private func checkIfFavoritedAndUpdateUI(bikeStation: BikeStationAnnotation) {
+    public func checkIfFavoritedAndUpdateUI(bikeStation: BikeStationAnnotation) {
         isStarred(bikeStation: bikeStation) { [weak self] (isStarred) in
             self?.setStarState(isStarred: isStarred)
         }
