@@ -11,7 +11,6 @@ class LaunchScreenViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // 자전구리 라벨
         let label1 = UILabel()
         label1.translatesAutoresizingMaskIntoConstraints = false
         label1.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
@@ -25,7 +24,6 @@ class LaunchScreenViewController: UIViewController {
             label1.centerYAnchor.constraint(equalTo: self.view.centerYAnchor, constant: -50) // Y축 위치 조정
         ])
         
-        // 시민과 함께하는 친환경 이동수단 라벨
         let label2 = UILabel()
         label2.translatesAutoresizingMaskIntoConstraints = false
         label2.textColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1)
@@ -39,7 +37,6 @@ class LaunchScreenViewController: UIViewController {
             label2.topAnchor.constraint(equalTo: label1.bottomAnchor, constant: 20)
         ])
         
-        // 이미지 뷰
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.image = UIImage(named: "bikeIcon.png")

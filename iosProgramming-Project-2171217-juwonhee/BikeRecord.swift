@@ -10,7 +10,6 @@ import Foundation
 import Firebase
 import FirebaseFirestore
 
-// 저장할 데이터 모델 정의
 struct BikeRecord {
     var usageTime: Int
     var distance: Double
@@ -21,8 +20,6 @@ struct BikeRecord {
     var startTime: Date
     var endTime: Date
     
-    
-    // 모델을 Dictionary로 변환하는 메서드
     func dictionaryRepresentation() -> [String: Any] {
         return [
             "usageTime": usageTime,
@@ -45,7 +42,6 @@ class FirestoreManager {
     
     private init() {}
     
-    // Firestore에 데이터 저장하는 함수
     func saveBikeRecord(_ record: BikeRecord, forUser userId: String, completion: @escaping (Error?) -> Void) {
         let userHistoryRef = db.collection("history").document("bikelist").collection(userId).document()
         

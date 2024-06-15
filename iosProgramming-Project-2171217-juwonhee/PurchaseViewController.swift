@@ -9,16 +9,8 @@ import UIKit
 
 class PurchaseViewController: UIViewController, UIPickerViewDataSource, UIPickerViewDelegate {
     @IBOutlet weak var rentalTime: UIPickerView!
-
     @IBOutlet weak var nextButton: UIButton!
     
-//        let segmentedControl: UISegmentedControl = {
-//            let control = UISegmentedControl(items: ["일일권", "정기권"])
-//            control.selectedSegmentIndex = 0
-//            control.backgroundColor = UIColor(red: 148/255, green: 206/255, blue: 204/255, alpha: 1.0)
-//            control.translatesAutoresizingMaskIntoConstraints = false
-//            return control
-//        }()
     let dailyLabel: UILabel = {
         let label = UILabel()
         label.text = "일일권"
@@ -68,31 +60,7 @@ class PurchaseViewController: UIViewController, UIPickerViewDataSource, UIPicker
             label.translatesAutoresizingMaskIntoConstraints = false
             return label
         }()
-        
 
-    
-//        let nextButton: UIButton = {
-//            let button = UIButton(type: .system)
-//            button.setTitle("다음으로", for: .normal)
-//            button.setTitleColor(.black, for: .normal)
-//            button.backgroundColor = UIColor(red: 148/255, green: 206/255, blue: 204/255, alpha: 1.0)
-////            button.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
-//            button.translatesAutoresizingMaskIntoConstraints = false
-//            return button
-//        }()
-    
-//    let nextButton: UIButton = {
-//        let button = UIButton(type: .system)
-//        button.setTitle("다음으로", for: .normal)
-//        button.setTitleColor(.black, for: .normal)
-//        button.backgroundColor = UIColor(red: 148/255, green: 206/255, blue: 204/255, alpha: 1.0)
-//        button.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
-//        button.translatesAutoresizingMaskIntoConstraints = false
-//        return button
-//    }()
-
-
-        
         let rentalOptions = ["1시간", "2시간", "3시간", "4시간", "5시간", "6시간"]
         
         override func viewDidLoad() {
@@ -142,11 +110,9 @@ class PurchaseViewController: UIViewController, UIPickerViewDataSource, UIPicker
         }
         
         func setupLayout() {
-//            view.addSubview(segmentedControl)
                 nextButton.setTitle("다음으로", for: .normal)
                 nextButton.setTitleColor(.black, for: .normal)
                 nextButton.backgroundColor = UIColor(red: 148/255, green: 206/255, blue: 204/255, alpha: 1.0)
-//                nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
                 nextButton.translatesAutoresizingMaskIntoConstraints = false
                 
             
@@ -173,11 +139,6 @@ class PurchaseViewController: UIViewController, UIPickerViewDataSource, UIPicker
             view.insertSubview(paymentSectionBackground, belowSubview: paymentLabel)
             
             NSLayoutConstraint.activate([
-//                segmentedControl.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-//                segmentedControl.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-//                segmentedControl.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-//
-//                rentalLabel.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: 40),
                 rentalLabel.topAnchor.constraint(equalTo: dailyLabel.bottomAnchor, constant: 40),
                 rentalLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
                 
@@ -208,13 +169,9 @@ class PurchaseViewController: UIViewController, UIPickerViewDataSource, UIPicker
             ])
         }
     
-    @objc func nextButtonTapped() {
-        performSegue(withIdentifier: "SelectedStationViewController", sender: self)
-    }
-
-
-    
-
+        @objc func nextButtonTapped() {
+            performSegue(withIdentifier: "SelectedStationViewController", sender: self)
+        }
 
         func numberOfComponents(in pickerView: UIPickerView) -> Int {
             return 1
@@ -224,13 +181,11 @@ class PurchaseViewController: UIViewController, UIPickerViewDataSource, UIPicker
             return rentalOptions.count
         }
         
-        // UIPickerViewDelegate 메서드
         func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
             return rentalOptions[row]
         }
         
         func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-            // 선택한 시간에 따라 행동을 정의
             let selectedRentalTime = rentalOptions[row]
             let price = (row + 1) * 1000 // 1시간에 1000원
             amountLabel.text = "\(price)원"

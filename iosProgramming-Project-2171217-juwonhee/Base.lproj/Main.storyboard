@@ -495,7 +495,7 @@
         <scene sceneID="BU6-tn-dn4">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="Z22-rl-IDI" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="내 정보" id="KMH-pD-vIQ"/>
+                    <tabBarItem key="tabBarItem" title="내 정보" image="person" catalog="system" selectedImage="person" id="KMH-pD-vIQ"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Qqu-21-wAq">
                         <rect key="frame" x="0.0" y="59" width="393" height="44"/>
@@ -625,6 +625,7 @@
     </inferredMetricsTieBreakers>
     <resources>
         <image name="map" catalog="system" width="128" height="112"/>
+        <image name="person" catalog="system" width="128" height="121"/>
         <image name="tray" catalog="system" width="128" height="88"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

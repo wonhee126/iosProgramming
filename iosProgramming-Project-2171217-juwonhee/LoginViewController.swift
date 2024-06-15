@@ -128,7 +128,6 @@ class LoginViewController: UIViewController {
                 self.present(alert, animated: true, completion: nil)
             } else {
                 print("User logged in successfully")
-//                self.dismiss(animated: true, completion: nil)
                 let mainTabBarController = self.storyboard?.instantiateViewController(withIdentifier: "MainTabBarController") as! UITabBarController
                 mainTabBarController.modalPresentationStyle = .fullScreen
                 self.present(mainTabBarController, animated: true, completion: nil)

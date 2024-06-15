@@ -41,6 +41,8 @@ class MypageViewController: UIViewController {
         } else {
             // 로그인되지 않은 상태
             setupLoginButton()
+            allRecordListButton.isHidden = true
+            enjoyButton.isHidden = true
         }
     }
     

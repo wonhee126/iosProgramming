@@ -67,11 +67,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
             func setupMapView() {
                 mapView.delegate = self
                 
-                // Setup map view
                 mapView.mapType = .standard
                 mapView.showsUserLocation = true
                 
-                // Setup location manager
                 locationManager.delegate = self
                 locationManager.desiredAccuracy = kCLLocationAccuracyBest
                 locationManager.requestWhenInUseAuthorization()
@@ -107,11 +105,9 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
                 }
             }
             
-            // CLLocationManagerDelegate methods
             func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
                 guard let location = locations.last else { return }
                 
-                // Set initial location only once
                 if !initialLocationSet {
                     initialLocationSet = true
                     let userLocation = CLLocationCoordinate2D(latitude: location.coordinate.latitude,
@@ -139,7 +135,6 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
                 present(alert, animated: true, completion: nil)
             }
             
-            // Center map on given location
             func centerMapOnLocation(location: CLLocationCoordinate2D) {
                 let coordinateRegion = MKCoordinateRegion(center: location, latitudinalMeters: regionRadius, longitudinalMeters: regionRadius)
                 mapView.setRegion(coordinateRegion, animated: true)

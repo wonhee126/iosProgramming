@@ -26,7 +26,6 @@ struct Location: Codable {
         parkingBikeTotCnt = try container.decode(String.self, forKey: .parkingBikeTotCnt)
         shared = try container.decode(String.self, forKey: .shared)
 
-        // 문자열을 Double로 변환
         let stationLatitudeString = try container.decode(String.self, forKey: .stationLatitude)
         let stationLongitudeString = try container.decode(String.self, forKey: .stationLongitude)
         stationLatitude = Double(stationLatitudeString) ?? 0.0

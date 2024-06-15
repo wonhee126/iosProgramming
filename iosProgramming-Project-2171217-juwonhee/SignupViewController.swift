@@ -23,12 +23,9 @@ class SignupViewController: UIViewController {
 
     }
     
-
-    
     @objc func backButtonTapped() {
            dismiss(animated: true, completion: nil)
        }
-    
     
     func setupCustomViews() {
         let logoImageView = UIImageView()
@@ -164,7 +161,6 @@ class SignupViewController: UIViewController {
             return
         }
         
-        // Firebase Authentication을 사용하여 계정 생성
         Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
             if let error = error {
                 print("회원가입 실패: \(error.localizedDescription)")
@@ -176,7 +172,6 @@ class SignupViewController: UIViewController {
                 return
             }
             
-            // Firestore에 사용자 정보 저장
             let db = Firestore.firestore()
             let userRef = db.collection("Users").document(user.uid)
             userRef.setData([

@@ -170,7 +170,6 @@ class BikeMeasurementViewController: UIViewController {
                     let startLocation = document.data()?["startLocation"] as? String ?? "출발지를 설정해주세요"
                     let endLocation = document.data()?["endLocation"] as? String ?? "도착지를 설정해주세요"
                     
-                    // 정류장 이름에서 숫자와 점을 제거하여 문자열만 추출
                     let cleanStartLocation = startLocation.components(separatedBy: CharacterSet.decimalDigits.union(CharacterSet(charactersIn: "."))).joined()
                     let cleanEndLocation = endLocation.components(separatedBy: CharacterSet.decimalDigits.union(CharacterSet(charactersIn: "."))).joined()
 
