@@ -44,7 +44,7 @@ class TabMapViewController: UIViewController, CLLocationManagerDelegate {
         
         let titleLabel = UILabel()
         titleLabel.text = "EcoBike"
-        titleLabel.font = UIFont.systemFont(ofSize: 10)
+        titleLabel.font = UIFont.systemFont(ofSize: 8)
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         
         let stackView = UIStackView(arrangedSubviews: [imageView, titleLabel])

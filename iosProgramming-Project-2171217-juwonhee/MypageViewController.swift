@@ -16,6 +16,7 @@ class MypageViewController: UIViewController {
     let db = Firestore.firestore()
     
     @IBOutlet weak var allRecordListButton: UIButton!
+    @IBOutlet weak var enjoyButton: UIButton!
     
     let profileImageView = UIImageView()
     let nicknameLabel = UILabel()
@@ -26,7 +27,7 @@ class MypageViewController: UIViewController {
     let caloriesLabel = UILabel()
     let carbonReductionLabel = UILabel()
     let usageDetailsContainer = UIView()
-    let enjoyButton = UIButton()
+//    let enjoyButton = UIButton()
     let logoutButton = UIButton()
     let loginButton = UIButton()
     

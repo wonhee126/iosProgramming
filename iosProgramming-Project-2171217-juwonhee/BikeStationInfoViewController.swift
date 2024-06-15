@@ -37,11 +37,11 @@ class BikeStationInfoView: UIView {
         stackView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(stackView)
         
-        stationIdLabel.font = UIFont.boldSystemFont(ofSize: 10)
-        stationIdLabel.textColor = .black
-        stationIdLabel.textAlignment = .left
-        stationIdLabel.translatesAutoresizingMaskIntoConstraints = false
-        stackView.addArrangedSubview(stationIdLabel)
+//        stationIdLabel.font = UIFont.boldSystemFont(ofSize: 10)
+//        stationIdLabel.textColor = .black
+//        stationIdLabel.textAlignment = .left
+//        stationIdLabel.translatesAutoresizingMaskIntoConstraints = false
+//        stackView.addArrangedSubview(stationIdLabel)
         
         stationNameLabel.font = UIFont.boldSystemFont(ofSize: 15)
         stationNameLabel.textColor = .black
@@ -68,14 +68,15 @@ class BikeStationInfoView: UIView {
             stackView.heightAnchor.constraint(equalToConstant: 100)
         ])
         
-        NSLayoutConstraint.activate([
-            stationIdLabel.leadingAnchor.constraint(equalTo: stackView.leadingAnchor, constant: 20),
-            stationIdLabel.topAnchor.constraint(equalTo: stackView.topAnchor, constant: 30)
-        ])
+//        NSLayoutConstraint.activate([
+//            stationIdLabel.leadingAnchor.constraint(equalTo: stackView.leadingAnchor, constant: 20),
+//            stationIdLabel.topAnchor.constraint(equalTo: stackView.topAnchor, constant: 20)
+//        ])
         
         NSLayoutConstraint.activate([
             stationNameLabel.leadingAnchor.constraint(equalTo: stackView.leadingAnchor, constant: 20),
-            stationNameLabel.topAnchor.constraint(equalTo: stationIdLabel.bottomAnchor, constant: 2)
+            stationNameLabel.centerYAnchor.constraint(equalTo: stackView.centerYAnchor)
+            
         ])
     }
     
