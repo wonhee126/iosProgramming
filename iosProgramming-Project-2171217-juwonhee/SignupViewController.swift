@@ -23,7 +23,7 @@ class SignupViewController: UIViewController {
 
     }
     
-    @objc func backButtonTapped() {
+    @objc func backButtonTapped() { // 뒤로가기 버튼 클릭 시
            dismiss(animated: true, completion: nil)
        }
     
@@ -153,7 +153,7 @@ class SignupViewController: UIViewController {
         return textField
     }
     
-    @objc func signupButtonTapped() {
+    @objc func signupButtonTapped() { // 회원가입 버튼 클릭 시
         guard let nickname = nicknameTextField.text, !nickname.isEmpty,
               let email = emailTextField.text, !email.isEmpty,
               let password = passwordTextField.text, !password.isEmpty else {
@@ -163,7 +163,7 @@ class SignupViewController: UIViewController {
         
         Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
             if let error = error {
-                print("회원가입 실패: \(error.localizedDescription)")
+                print("회원가입 실패")
                 return
             }
             
@@ -179,16 +179,16 @@ class SignupViewController: UIViewController {
                 "email": email
             ]) { error in
                 if let error = error {
-                    print("Error adding document: \(error.localizedDescription)")
+                    print("추가 실패하였습니다.")
                 } else {
-                    print("Document added successfully")
+                    print("성공적으로 추가되었습니다.")
                     self.navigateToLoginScreen()
                 }
             }
         }
     }
     
-    func navigateToLoginScreen() {
+    func navigateToLoginScreen() { // 회원가입 성공 시 로그인 페이지로 이동
         if let loginViewController = storyboard?.instantiateViewController(withIdentifier: "LoginViewController") {
             loginViewController.modalPresentationStyle = .fullScreen
             present(loginViewController, animated: true, completion: nil)

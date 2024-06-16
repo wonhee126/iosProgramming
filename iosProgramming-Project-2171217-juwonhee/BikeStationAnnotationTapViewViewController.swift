@@ -27,36 +27,33 @@ class BikeStationAnnotationTapView: MKMarkerAnnotationView {
             starButton?.addTarget(self, action: #selector(toggleStar), for: .touchUpInside)
 
    
-            checkIfFavoritedAndUpdateUI(bikeStation: bikeStation)
+            checkFavoritedAndUpdateUI(bikeStation: bikeStation) // 즐겨찾기 상태를 확인하여 UI 업데이트
 
-            rightCalloutAccessoryView = starButton
+            rightCalloutAccessoryView = starButton // 즐겨찾기
 
             markerTintColor = bikeStation.markerTintColor
             glyphText = "\(bikeStation.availableBikes)"
         }
     }
 
-    @objc private func toggleStar(sender: UIButton) {
+    @objc private func toggleStar(sender: UIButton) { // 맵에서 즐겨찾기 버튼 클릭에 대한 처리
         guard let bikeStation = annotation as? BikeStationAnnotation else { return }
 
         if let user = Auth.auth().currentUser, let email = user.email {
             let db = Firestore.firestore()
 
             if isStarred {
-                // Remove from favorites
                 db.collection("favorites").document(email).collection("bikeStation").document(bikeStation.title ?? "").delete { [weak self] error in
                     if let error = error {
                         print("Error removing document: \(error)")
                     } else {
-                        // 로그 출력
-                        print("BikeStationAnnotationTapViewController Deleted favorite bike station: \(bikeStation.title ?? "")")
+                        print("즐겨찾기 삭제 대여소: \(bikeStation.title ?? "")")
 
                         self?.setStarState(isStarred: false)
                         self?.updateTableView()
                     }
                 }
             } else {
-                // Add to favorites
                 let favoriteData: [String: Any] = [
                     "title": bikeStation.title ?? "",
                     "subtitle": bikeStation.subtitle ?? "",
@@ -66,10 +63,10 @@ class BikeStationAnnotationTapView: MKMarkerAnnotationView {
                 ]
 
                 db.collection("favorites").document(email).collection("bikeStation").document(bikeStation.title ?? "").setData(favoriteData) { [weak self] error in
-                    if let error = error {
-                        print("Error adding document: \(error)")
+                    if error != nil {
+                        print("즐겨찾기 추가에 실패하였습니다.")
                     } else {
-                        print("Added to favorites")
+                        print("즐겨찾기에 추가되었습니다.")
                         self?.setStarState(isStarred: true)
                         self?.updateTableView()
                     }
@@ -78,7 +75,7 @@ class BikeStationAnnotationTapView: MKMarkerAnnotationView {
         }
     }
 
-    private func isStarred(bikeStation: BikeStationAnnotation, completion: @escaping (Bool) -> Void) {
+    private func isStarred(bikeStation: BikeStationAnnotation, completion: @escaping (Bool) -> Void) { // db 에서 해당 대여소가 즐겨찾기에 해당되는지를 확인
         guard let user = Auth.auth().currentUser, let email = user.email else {
             completion(false)
             return
@@ -105,13 +102,13 @@ class BikeStationAnnotationTapView: MKMarkerAnnotationView {
         }
     }
 
-    public func checkIfFavoritedAndUpdateUI(bikeStation: BikeStationAnnotation) {
+    public func checkFavoritedAndUpdateUI(bikeStation: BikeStationAnnotation) {
         isStarred(bikeStation: bikeStation) { [weak self] (isStarred) in
             self?.setStarState(isStarred: isStarred)
         }
     }
 
-    private func updateTableView() {
+    private func updateTableView() { // 즐겨찾기에 대한 알림을 전송
         NotificationCenter.default.post(name: Notification.Name("FavoritesUpdated"), object: nil)
     }
 }

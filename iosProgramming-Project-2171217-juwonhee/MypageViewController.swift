@@ -33,9 +33,7 @@ class MypageViewController: UIViewController, UIImagePickerControllerDelegate, U
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupNavigationBar()
-        
-
+        setupNavigationBar() // 상단바
         
         if Auth.auth().currentUser != nil {
             // 로그인된 상태
@@ -48,12 +46,13 @@ class MypageViewController: UIViewController, UIImagePickerControllerDelegate, U
             enjoyButton.isHidden = true
         }
         
-        // 프로필 이미지뷰에 탭 제스처 추가
+        // 프로필 이미지에 tagGesture 추가
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(profileImageViewTapped))
         profileImageView.addGestureRecognizer(tapGesture)
         profileImageView.isUserInteractionEnabled = true
         
     }
+    
     @objc func profileImageViewTapped() {
            let imagePickerController = UIImagePickerController()
            imagePickerController.delegate = self
@@ -61,17 +60,20 @@ class MypageViewController: UIViewController, UIImagePickerControllerDelegate, U
            
            present(imagePickerController, animated: true, completion: nil)
        }
+    
+    // 사용자가 이미지 피커에서 이미지를 선택했을 때 호출
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
             if let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
                 profileImageView.image = pickedImage
             }
-            
             dismiss(animated: true, completion: nil)
         }
         
+    // 사용자가 이미지 피커에서 취소 버튼을 눌렀을 때 호출
         func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
             dismiss(animated: true, completion: nil)
         }
+    
     func setupNavigationBar() {
         self.navigationController?.navigationBar.barTintColor = UIColor(red: 148/255, green: 206/255, blue: 204/255, alpha: 1.0)
         self.navigationItem.title = ""
@@ -108,6 +110,7 @@ class MypageViewController: UIViewController, UIImagePickerControllerDelegate, U
         self.navigationItem.titleView = titleView
     }
 
+    // 사용자가 로그인이 되어있을 때 보여주는 UI
     func setupUI() {
         view.backgroundColor = .white
         
@@ -242,13 +245,14 @@ class MypageViewController: UIViewController, UIImagePickerControllerDelegate, U
         return rowStack
     }
     
+    // 로그인한 사용자별로 현재까지의 합산된 기록 출력
     func fetchUserHistory() {
         guard let user = Auth.auth().currentUser else {
             print("User not logged in.")
             return
         }
         
-        let historyRef = db.collection("history").document("bikelist")
+        let _: Void = db.collection("history").document("bikelist")
             .collection(user.email!).getDocuments { (querySnapshot, error) in
             if let error = error {
                 print("Error fetching user history: \(error.localizedDescription)")
@@ -281,8 +285,7 @@ class MypageViewController: UIViewController, UIImagePickerControllerDelegate, U
                 }
             }
             
-            // Update UI on the main thread
-            DispatchQueue.main.async {
+            DispatchQueue.main.async { // UI 업데이트를 메인 스레드에서 안전하게 수행
                 self.usageTimeLabel.text = "\(totalUsageTime) 분"
                 self.distanceLabel.text = String(format: "%.2f km", totalDistance)
                 self.caloriesLabel.text = String(format: "%.2f kcal", totalCalories)
@@ -291,9 +294,7 @@ class MypageViewController: UIViewController, UIImagePickerControllerDelegate, U
         }
     }
 
-    
-    
-    func fetchUserInfo() {
+    func fetchUserInfo() { // 로그인한 사용자 정보 출력
         let user = Auth.auth().currentUser!
         let email = user.email ?? "Unknown Email"
         let uid = user.uid
@@ -303,8 +304,8 @@ class MypageViewController: UIViewController, UIImagePickerControllerDelegate, U
             if let document = document, document.exists {
                 let data = document.data()
                 let nickname = data?["nickname"] as? String ?? "Unknown Nickname"
-                self.updateUI(email: email, nickname: nickname)
-                self.fetchUserHistory()
+                self.updateUI(email: email, nickname: nickname) // 닉네임과 이메일 출력
+                self.fetchUserHistory() // 로그인한 사용자별로 현재까지의 합산된 기록 출력
             } else {
                 print("Document does not exist")
                 if let error = error {
@@ -315,7 +316,7 @@ class MypageViewController: UIViewController, UIImagePickerControllerDelegate, U
     }
     
     func updateUI(email: String, nickname: String) {
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { // UI 업데이트를 메인 스레드에서 안전하게 수행
             self.nicknameLabel.text = "\(nickname)님"
             self.emailLabel.text = "\(email)"
 
@@ -323,17 +324,17 @@ class MypageViewController: UIViewController, UIImagePickerControllerDelegate, U
     }
 
     @objc func logoutButtonTapped() {
-        print("here!!!11111")
-        resetBikeRecordInFirestore()
+        //print("here!!!11111")
+        resetBikeRecordInFirestore() // 이용권 구매에서 선택한 출발지와 도착지 초기화
         do {
             try Auth.auth().signOut()
-            navigateToLoginScreen()
+            navigateToLoginScreen() // 로그인 페이지로 이동
         } catch {
             print("Error signing out:", error)
         }
     }
 
-    func navigateToLoginScreen() {
+    func navigateToLoginScreen() { // 로그인 페이지로 이동
         guard let loginVC = storyboard?.instantiateViewController(withIdentifier: "LoginViewController") else {
             print("LoginViewController not found")
             return
@@ -342,7 +343,7 @@ class MypageViewController: UIViewController, UIImagePickerControllerDelegate, U
         present(loginVC, animated: true)
     }
     
-    func setupLoginButton() {
+    func setupLoginButton() { // 사용자가 로그인하지 않았을 때 보이는 UI
         loginButton.setTitle("로그인", for: .normal)
         loginButton.backgroundColor = UIColor(red: 174/255, green: 225/255, blue: 223/255, alpha: 1)
         loginButton.setTitleColor(.black, for: .normal)
@@ -360,27 +361,26 @@ class MypageViewController: UIViewController, UIImagePickerControllerDelegate, U
         ])
     }
     
-    @objc func loginButtonTapped() {
-
+    @objc func loginButtonTapped() { // 로그인 페이지로 이동
         navigateToLoginScreen()
     }
     
     func resetBikeRecordInFirestore() {
-        print("here!!22222")
+        //print("here!!22222")
         guard let user = Auth.auth().currentUser else {
             print("User not logged in.")
             return
         }
-        
         let docRef = db.collection("Users").document(user.uid)
                          .collection("history").document("bikeList")
                          .collection("1").document("record")
         
         let defaultStartLocation = "출발지를 설정해주세요"
-            let defaultEndLocation = "도착지를 설정해주세요"
+        let defaultEndLocation = "도착지를 설정해주세요"
         let startTimestamp = Timestamp(date: Date())
-           let endTimestamp = Timestamp(date: Date())
-        print("here!!333333")
+        let endTimestamp = Timestamp(date: Date())
+        //print("here!!333333")
+        // 데이터 초기화 작업
         docRef.updateData([
                 "startLocation": defaultStartLocation,
                 "startTimestamp": startTimestamp,
@@ -397,6 +397,5 @@ class MypageViewController: UIViewController, UIImagePickerControllerDelegate, U
                 }
             }
         }
-    
 }
 

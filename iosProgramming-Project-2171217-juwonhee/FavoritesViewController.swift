@@ -17,7 +17,6 @@ class FavoritesViewController: UIViewController {
     @IBOutlet weak var favoriteTableView: UITableView!
     @IBOutlet weak var editButton: UIBarButtonItem!
     
-        // UI Elements
     let headerView: UIView = {
         let view = UIView()
         view.frame = CGRect(x: 0, y: 0, width: 356.75, height: 66)
@@ -40,12 +39,14 @@ class FavoritesViewController: UIViewController {
 
         override func viewDidLoad() {
             super.viewDidLoad()
-            setupNavigationBar()
+            setupNavigationBar() // 상단바
 
+            // tableview 에서 사용할 cell, datasource, delegate 설정
             favoriteTableView.register(UITableViewCell.self, forCellReuseIdentifier: "FavoriteCell")
             favoriteTableView.dataSource = self
             favoriteTableView.delegate = self
 
+            // 즐겨찾기 목록 UI
             setupHeaderView()
         }
 
@@ -85,9 +86,11 @@ class FavoritesViewController: UIViewController {
         self.navigationItem.titleView = titleView
     }
     
-        override func viewDidAppear(_ animated: Bool) {
+        override func viewDidAppear(_ animated: Bool) { // 뷰가 화면에 나타난 후에 호출
             super.viewDidAppear(animated)
-            loadFavorites()
+
+            // 즐겨찾기 항목을 최신 상태로 유지하기 위함
+            loadFavorites() // loadFavorites() 메서드를 이 메서드 안에서 호출하여 뷰가 화면에 나타날 때마다 즐겨찾기 항목을 다시 로드
         }
 
         private func setupHeaderView() {
@@ -111,9 +114,9 @@ class FavoritesViewController: UIViewController {
             ])
         }
 
-        @objc private func handleFavoritesUpdated(_ notification: Notification) {
-            loadFavorites()
-        }
+//        @objc private func handleFavoritesUpdated(_ notification: Notification) {
+//            loadFavorites()
+//        }
 
         private func loadFavorites() {
             guard let user = Auth.auth().currentUser, let email = user.email else { return }
@@ -140,11 +143,12 @@ class FavoritesViewController: UIViewController {
                         return bikeStation
                     } ?? []
 
-                    self?.favoriteTableView.reloadData()
+                    self?.favoriteTableView.reloadData() // db에서 즐겨찾기 항목을 가져와 최신 상태로 reload
                 }
             }
         }
 
+        // 편집->완료, 완료->편집 으로 title 변경
         @IBAction func editButtonTapped(_ sender: UIBarButtonItem) {
             favoriteTableView.setEditing(!favoriteTableView.isEditing, animated: true)
             editButton.title = favoriteTableView.isEditing ? "완료" : "편집"
@@ -157,6 +161,7 @@ class FavoritesViewController: UIViewController {
             return favoriteBikeStations.count
         }
 
+        // 셀을 구성
         func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
             let cell = tableView.dequeueReusableCell(withIdentifier: "FavoriteCell", for: indexPath)
             let bikeStation = favoriteBikeStations[indexPath.row]
@@ -166,6 +171,7 @@ class FavoritesViewController: UIViewController {
             return cell
         }
 
+        // swipe 하여 삭제
         func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
             if editingStyle == .delete {
                 guard let user = Auth.auth().currentUser, let email = user.email else { return }
@@ -173,7 +179,7 @@ class FavoritesViewController: UIViewController {
                 let bikeStation = favoriteBikeStations[indexPath.row]
                 db.collection("favorites").document(email).collection("bikeStation").document(bikeStation.title ?? "").delete { [weak self] error in
                     if let error = error {
-                        print("Error removing document: \(error)")
+                        print("즐겨찾기 삭제에 실패하였습니다.")
                     } else {
                         self?.favoriteBikeStations.remove(at: indexPath.row)
                         tableView.deleteRows(at: [indexPath], with: .fade)
@@ -182,16 +188,12 @@ class FavoritesViewController: UIViewController {
             }
         }
 
+        // 삭제
         func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-            let movedObject = favoriteBikeStations[sourceIndexPath.row]
             favoriteBikeStations.remove(at: sourceIndexPath.row)
-            favoriteBikeStations.insert(movedObject, at: destinationIndexPath.row)
         }
 
-        func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-            return true
-        }
-
+        // 이동
         func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
             return true
         }
@@ -199,6 +201,7 @@ class FavoritesViewController: UIViewController {
 
     extension FavoritesViewController: UITableViewDelegate {
 
+        // 특정 행을 선택
         func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
             _ = favoriteBikeStations[indexPath.row]
             tableView.deselectRow(at: indexPath, animated: true)

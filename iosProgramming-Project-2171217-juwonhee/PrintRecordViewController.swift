@@ -34,7 +34,6 @@ class PrintRecordViewController: UIViewController {
     
     private var bikeRecords: [BikeRecord] = []
     private let db = Firestore.firestore()
-    private var listener: ListenerRegistration?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,12 +43,8 @@ class PrintRecordViewController: UIViewController {
         setupHeaderView()
     }
     
-    deinit {
-        listener?.remove()
-    }
     
-    
-    private func setupHeaderView() {
+    private func setupHeaderView() { // 대여 반납 목록
         headerView.translatesAutoresizingMaskIntoConstraints = false
         headerLabel.translatesAutoresizingMaskIntoConstraints = false
         
@@ -71,7 +66,7 @@ class PrintRecordViewController: UIViewController {
         ])
     }
     
-    func setupNavigationBar() {
+    func setupNavigationBar() { // 상단바
         self.navigationController?.navigationBar.barTintColor = UIColor(red: 148/255, green: 206/255, blue: 204/255, alpha: 1.0)
         self.navigationItem.title = ""
         
@@ -107,21 +102,20 @@ class PrintRecordViewController: UIViewController {
         self.navigationItem.titleView = titleView
     }
     
-    func configureTableView() {
+    func configureTableView() { // tableview 설정
         bikeRecordTableView.delegate = self
         bikeRecordTableView.dataSource = self
         bikeRecordTableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
     }
     
-    func fetchBikeRecords() {
+    func fetchBikeRecords() { // db에서 기록 가져와서 bikeRecords 배열에 저장한 후 tableview 업데이트
         guard let user = Auth.auth().currentUser else {
             print("사용자가 로그인되어 있지 않습니다.")
             return
         }
         
         let userEmail = user.email ?? "unknown@example.com"
-        
-        listener = db.collection("history")
+        db.collection("history")
             .document("bikelist")
             .collection(userEmail)
             .order(by: "startTime", descending: true) // startTime 기준으로 내림차순 정렬
@@ -169,7 +163,7 @@ class PrintRecordViewController: UIViewController {
                 
                 self.bikeRecords = fetchedRecords
                 DispatchQueue.main.async {
-                    self.bikeRecordTableView.reloadData()
+                    self.bikeRecordTableView.reloadData() // tableview 다시 로드
                 }
             }
     }
@@ -177,17 +171,19 @@ class PrintRecordViewController: UIViewController {
 
     extension PrintRecordViewController: UITableViewDataSource, UITableViewDelegate {
         
+        // 행 수를 반환
         func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
             return bikeRecords.count
         }
         
+        // 행에 표시할 cell
         func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
             let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath)
             let record = bikeRecords[indexPath.row]
             let formattedDistance = String(format: "거리: %.3f km", record.distance)
             cell.textLabel?.text = "이용 시간: \(record.usageTime) 분, \(formattedDistance)"
             
-            let arrowImageView = UIImageView(image: UIImage(systemName: "chevron.right"))
+            let arrowImageView = UIImageView(image: UIImage(systemName: "chevron.right")) // > 표시
             arrowImageView.tintColor = .systemBlue
             arrowImageView.contentMode = .scaleAspectFit
             
@@ -196,11 +192,13 @@ class PrintRecordViewController: UIViewController {
             return cell
         }
         
+        // cell 선택 시 상세 뷰 컨트롤러로 이동
         func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
             let selectedRecord = bikeRecords[indexPath.row]
             showDetailViewController(for: selectedRecord)
         }
         
+        // 상세 뷰 컨트롤러로 이동 코드
         func showDetailViewController(for record: BikeRecord) {
             let detailVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "DetailViewController") as! DetailViewController
             detailVC.bikeRecord = record

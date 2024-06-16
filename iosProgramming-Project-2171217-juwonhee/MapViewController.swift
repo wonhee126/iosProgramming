@@ -5,7 +5,7 @@ import Firebase
 import FirebaseAuth
 import FirebaseFirestore
 
-class MapViewController: UIViewController, CLLocationManagerDelegate {
+class MapViewController: UIViewController, CLLocationManagerDelegate { // 지도와 관련된 라이브러리 임포트
     
     @IBOutlet weak var mapView: MKMapView!
     
@@ -20,15 +20,14 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
             override func viewDidLoad() {
                 super.viewDidLoad()
                 
-                setupNavigationBar()
-                setupMapView()
-                setupInfoView()
-                checkLocationAuthorizationStatus()
-                loadBikeStations()
+                setupNavigationBar() // 상단바
+                setupMapView() // 지도 뷰 설정 초기화
+                setupInfoView() // 자전거 대여소 정보 뷰 설정 초기화
+                checkLocationAuthorizationStatus() // 위치 권한 상태 확인
+                loadBikeStations() // 자전거 대여소 데이터 로드
             }
             
             func setupNavigationBar() {
-                // 네비게이션 바 설정
                 self.navigationController?.navigationBar.barTintColor = UIColor(red: 148/255, green: 206/255, blue: 204/255, alpha: 1.0)
                 self.navigationItem.title = ""
                 
@@ -117,7 +116,7 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
             }
             
             func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-                print("Failed to get user location: \(error)")
+                print("사용자 위치를 가져오는데 실패하였습니다.")
             }
             
             func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
@@ -143,18 +142,18 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
             func loadBikeStations() {
                 BikeStationLoader.loadMultipleBikeStations { [weak self] bikeStations in
                     guard let self = self, let bikeStations = bikeStations else {
-                        print("Failed to load bike data.")
+                        print("정보를 가져오는데 실패하였습니다.")
                         return
                     }
                     
-                    DispatchQueue.main.async {
+                    DispatchQueue.main.async { // 메인 스레드로 전환하여 UI 업데이트를 안전하게 처리
                         for station in bikeStations {
                             let availableBikes = Int(station.parkingBikeTotCnt) ?? 0
                             let annotation = BikeStationAnnotation(
-                                title: station.stationName,
-                                subtitle: station.stationId,
-                                coordinate: CLLocationCoordinate2D(latitude: station.stationLatitude, longitude: station.stationLongitude),
-                                availableBikes: availableBikes
+                                title: station.stationName, // 대여소 이름
+                                subtitle: station.stationId, // 대여소 ID
+                                coordinate: CLLocationCoordinate2D(latitude: station.stationLatitude, longitude: station.stationLongitude), // 대여소 장소
+                                availableBikes: availableBikes // 대여 가능한 자전거 수
                             )
                             self.mapView.addAnnotation(annotation)
                         }
@@ -164,18 +163,18 @@ class MapViewController: UIViewController, CLLocationManagerDelegate {
         }
 
         extension MapViewController: MKMapViewDelegate {
-            func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+            func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) { // annotation 선택 시
                 guard let annotation = view.annotation as? BikeStationAnnotation else { return }
            
                 infoView.update(stationId: annotation.subtitle ?? "", stationName: annotation.title ?? "", availableBikes: annotation.availableBikes)
                 infoView.isHidden = false
             }
             
-            func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
+            func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) { // annotation 선택 해제 시
                 infoView.isHidden = true
             }
             
-            func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+            func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? { // annotation 표시
                 guard let annotation = annotation as? BikeStationAnnotation else {
                     return nil
                 }

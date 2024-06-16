@@ -9,6 +9,7 @@
 
 import UIKit
 
+// annotation 선택 시 하단에 뜨는 정보
 class BikeStationInfoView: UIView {
     
     private let stackView = UIStackView()

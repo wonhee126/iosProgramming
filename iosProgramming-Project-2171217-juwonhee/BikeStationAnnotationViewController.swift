@@ -7,7 +7,8 @@
 
 import MapKit
 
-class BikeStationAnnotation: NSObject, MKAnnotation {
+// 지도 위에 자전거 대여소를 표시
+class BikeStationAnnotation: NSObject, MKAnnotation { // MapKit의 MKAnnotation 프로토콜
     let title: String?
     let subtitle: String?
     let coordinate: CLLocationCoordinate2D
@@ -21,7 +22,7 @@ class BikeStationAnnotation: NSObject, MKAnnotation {
         super.init()
     }
 
-    var markerTintColor: UIColor {
+    var markerTintColor: UIColor { // annotation 색상 
         return .green
     } 
 }

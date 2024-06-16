@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2B6AFE062C1BA50300AFDE8E /* NotificationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6AFE052C1BA50300AFDE8E /* NotificationExtensions.swift */; };
 		2B6AFE082C1BC47D00AFDE8E /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6AFE072C1BC47D00AFDE8E /* DetailViewController.swift */; };
 		2B8054812C1DE4980004B7E0 /* FavoritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B8054802C1DE4980004B7E0 /* FavoritesViewController.swift */; };
 		2B9479A32C1B23E2008B1CB8 /* TabMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9479A22C1B23E2008B1CB8 /* TabMapViewController.swift */; };
@@ -40,14 +39,12 @@
 		2BD8F74C2BF7A2B8001C8F9E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2BD8F74B2BF7A2B8001C8F9E /* Assets.xcassets */; };
 		2BD8F74F2BF7A2B8001C8F9E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2BD8F74D2BF7A2B8001C8F9E /* LaunchScreen.storyboard */; };
 		2BD8F75B2BF7BFA8001C8F9E /* Athens.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 2BD8F75A2BF7BFA8001C8F9E /* Athens.jpeg */; };
-		2BD8F75E2BF7C155001C8F9E /* bikeData.json in Sources */ = {isa = PBXBuildFile; fileRef = 2BD8F75D2BF7C155001C8F9E /* bikeData.json */; };
 		2BD8F7662BF7D62A001C8F9E /* BikeStationLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD8F7652BF7D62A001C8F9E /* BikeStationLoader.swift */; };
 		2BD8F7682BF7DD05001C8F9E /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BD8F7672BF7DD05001C8F9E /* Location.swift */; };
 		2BF7B4922C0D91D700E1C6BE /* LaunchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BF7B4912C0D91D700E1C6BE /* LaunchScreenViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		2B6AFE052C1BA50300AFDE8E /* NotificationExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationExtensions.swift; sourceTree = "<group>"; };
 		2B6AFE072C1BC47D00AFDE8E /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 		2B8054802C1DE4980004B7E0 /* FavoritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritesViewController.swift; sourceTree = "<group>"; };
 		2B9479A22C1B23E2008B1CB8 /* TabMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabMapViewController.swift; sourceTree = "<group>"; };
@@ -74,7 +71,6 @@
 		2BD8F74E2BF7A2B8001C8F9E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2BD8F7502BF7A2B8001C8F9E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2BD8F75A2BF7BFA8001C8F9E /* Athens.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Athens.jpeg; sourceTree = "<group>"; };
-		2BD8F75D2BF7C155001C8F9E /* bikeData.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = bikeData.json; sourceTree = "<group>"; };
 		2BD8F7652BF7D62A001C8F9E /* BikeStationLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BikeStationLoader.swift; sourceTree = "<group>"; };
 		2BD8F7672BF7DD05001C8F9E /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		2BF7B4912C0D91D700E1C6BE /* LaunchScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchScreenViewController.swift; sourceTree = "<group>"; };
@@ -135,7 +131,6 @@
 				2BD8F74D2BF7A2B8001C8F9E /* LaunchScreen.storyboard */,
 				2BD8F7502BF7A2B8001C8F9E /* Info.plist */,
 				2BD8F7652BF7D62A001C8F9E /* BikeStationLoader.swift */,
-				2BD8F75D2BF7C155001C8F9E /* bikeData.json */,
 				2BD8F7672BF7DD05001C8F9E /* Location.swift */,
 				2BA7EB182C0BA28D003135EA /* MypageViewController.swift */,
 				2BA7EB1A2C0BA2D5003135EA /* LoginViewController.swift */,
@@ -153,7 +148,6 @@
 				2B9479A82C1B6B1E008B1CB8 /* BikeRecord.swift */,
 				2B9479AA2C1B70FC008B1CB8 /* PrintRecordModalViewController.swift */,
 				2B9479AC2C1B757D008B1CB8 /* PrintRecordViewController.swift */,
-				2B6AFE052C1BA50300AFDE8E /* NotificationExtensions.swift */,
 				2B6AFE072C1BC47D00AFDE8E /* DetailViewController.swift */,
 				2B8054802C1DE4980004B7E0 /* FavoritesViewController.swift */,
 			);
@@ -249,7 +243,6 @@
 				2BA7EB312C0BB624003135EA /* SignupViewController.swift in Sources */,
 				2BD8F7472BF7A2B7001C8F9E /* MapViewController.swift in Sources */,
 				2BA5D8602C0ECF7B008EC52A /* BikeStationAnnotationViewViewController.swift in Sources */,
-				2B6AFE062C1BA50300AFDE8E /* NotificationExtensions.swift in Sources */,
 				2B9479AD2C1B757D008B1CB8 /* PrintRecordViewController.swift in Sources */,
 				2BD8F7662BF7D62A001C8F9E /* BikeStationLoader.swift in Sources */,
 				2BA7EB192C0BA28D003135EA /* MypageViewController.swift in Sources */,
@@ -264,7 +257,6 @@
 				2BA04A3A2C1A21E5008A774E /* SelectedStationViewController.swift in Sources */,
 				2B6AFE082C1BC47D00AFDE8E /* DetailViewController.swift in Sources */,
 				2BA7EB1B2C0BA2D5003135EA /* LoginViewController.swift in Sources */,
-				2BD8F75E2BF7C155001C8F9E /* bikeData.json in Sources */,
 				2BD8F7682BF7DD05001C8F9E /* Location.swift in Sources */,
 				2BF7B4922C0D91D700E1C6BE /* LaunchScreenViewController.swift in Sources */,
 				2BD8F7452BF7A2B7001C8F9E /* SceneDelegate.swift in Sources */,

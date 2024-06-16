@@ -31,7 +31,7 @@ class PurchaseViewController: UIViewController, UIPickerViewDataSource, UIPicker
         
         let rentalTimePicker: UIPickerView = {
             let picker = UIPickerView()
-            picker.backgroundColor = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1.0) // very light gray
+            picker.backgroundColor = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1.0)
             picker.translatesAutoresizingMaskIntoConstraints = false
             return picker
         }()
@@ -53,7 +53,7 @@ class PurchaseViewController: UIViewController, UIPickerViewDataSource, UIPicker
             return label
         }()
         
-        let amountDescLabel: UILabel = {
+        let customRentalTimeLabel: UILabel = {
             let label = UILabel()
             label.text = "일일권(1시간)"
             label.textColor = .black
@@ -67,6 +67,7 @@ class PurchaseViewController: UIViewController, UIPickerViewDataSource, UIPicker
             super.viewDidLoad()
             setupNavigationBar() // 상단바
             
+            // 현재 클래스가 데이터 소스 및 delegate 메서드를 구현하고 처리
             rentalTimePicker.dataSource = self
             rentalTimePicker.delegate = self
             
@@ -120,7 +121,7 @@ class PurchaseViewController: UIViewController, UIPickerViewDataSource, UIPicker
             view.addSubview(rentalTimePicker)
             view.addSubview(paymentLabel)
             view.addSubview(amountLabel)
-            view.addSubview(amountDescLabel)
+            view.addSubview(customRentalTimeLabel)
             view.addSubview(nextButton)
             view.addSubview(dailyLabel)
   
@@ -158,14 +159,14 @@ class PurchaseViewController: UIViewController, UIPickerViewDataSource, UIPicker
                 amountLabel.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor, constant: -20),
                 amountLabel.topAnchor.constraint(equalTo: paymentLabel.topAnchor),
 
-                amountDescLabel.leadingAnchor.constraint(equalTo: paymentLabel.leadingAnchor),
-                amountDescLabel.topAnchor.constraint(equalTo: amountLabel.bottomAnchor, constant: 10),
+                customRentalTimeLabel.leadingAnchor.constraint(equalTo: paymentLabel.leadingAnchor),
+                customRentalTimeLabel.topAnchor.constraint(equalTo: amountLabel.bottomAnchor, constant: 10),
                 
 
                 paymentSectionBackground.topAnchor.constraint(equalTo: paymentLabel.topAnchor, constant: -10),
                 paymentSectionBackground.leadingAnchor.constraint(equalTo: view.leadingAnchor),
                 paymentSectionBackground.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-                paymentSectionBackground.bottomAnchor.constraint(equalTo: amountDescLabel.bottomAnchor, constant: 42)
+                paymentSectionBackground.bottomAnchor.constraint(equalTo: customRentalTimeLabel.bottomAnchor, constant: 42)
             ])
         }
     
@@ -173,23 +174,27 @@ class PurchaseViewController: UIViewController, UIPickerViewDataSource, UIPicker
             performSegue(withIdentifier: "SelectedStationViewController", sender: self)
         }
 
+        // pickerView에서 표시할 열의 수
         func numberOfComponents(in pickerView: UIPickerView) -> Int {
             return 1
         }
         
+        // 각 열에 표시할 행의 수
         func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
             return rentalOptions.count
         }
         
+        // row 인덱스에 해당하는 요소를 반환하여 표시
         func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
             return rentalOptions[row]
         }
         
+        // 특정 행을 선택했을 때 호출
         func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
             let selectedRentalTime = rentalOptions[row]
             let price = (row + 1) * 1000 // 1시간에 1000원
             amountLabel.text = "\(price)원"
-            amountDescLabel.text = "일일권(\(selectedRentalTime))"
-            print("Selected rental time: \(selectedRentalTime)")
+            customRentalTimeLabel.text = "일일권(\(selectedRentalTime))"
+            print("선택된 대여 시간: \(selectedRentalTime)")
         }
     }

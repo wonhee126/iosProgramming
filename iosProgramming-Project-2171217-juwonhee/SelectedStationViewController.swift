@@ -170,12 +170,13 @@ class SelectedStationViewController: UIViewController {
 
 
     
-        func fetchLocations() {
+        func fetchLocations() { // 선택한 대여소 출력
             guard let user = Auth.auth().currentUser else {
                 print("사용자가 로그인되어 있지 않습니다.")
                 return
             }
 
+            // 해당 경로에 저장된 데이터를 가져와서 출력하기 위함
             let docRef = db.collection("Users").document(user.uid).collection("history").document("bikeList").collection("1").document("record")
 
             docRef.getDocument { (document, error) in
@@ -184,7 +185,7 @@ class SelectedStationViewController: UIViewController {
                     self.endLocation = document.data()?["endLocation"] as? String ?? ""
                     self.updateUI()
                 } else {
-                    print("Document does not exist")
+                    print("데이터가 존재하지 않습니다.")
                     self.startLocation = ""
                     self.endLocation = ""
                     self.updateUI()
@@ -195,7 +196,7 @@ class SelectedStationViewController: UIViewController {
     
 
 
-        func initializeUserData(for userId: String) {
+        func initializeUserData(for userId: String) { // 대여소를 선택하기 전에는 db 에 저장된 데이터를 출력하지 않기 위함
             let docRef = db.collection("Users").document(userId).collection("history").document("bikeList").collection("1").document("record")
 
             let initialData: [String: Any] = [
@@ -205,9 +206,9 @@ class SelectedStationViewController: UIViewController {
             
             docRef.setData(initialData) { error in
                 if let error = error {
-                    print("Error initializing user data: \(error.localizedDescription)")
+                    print("초기화 실패")
                 } else {
-                    print("User data initialized successfully")
+                    print("성공적으로 초기화되었습니다.")
                     self.startLocation = ""
                     self.endLocation = ""
                     self.updateUI()
@@ -215,7 +216,7 @@ class SelectedStationViewController: UIViewController {
             }
         }
 
-        func updateUI() {
+        func updateUI() { // 처음에 보이는 UI
             let cleanStartLocation = startLocation.components(separatedBy: CharacterSet.decimalDigits.union(CharacterSet(charactersIn: "."))).joined()
             let cleanEndLocation = endLocation.components(separatedBy: CharacterSet.decimalDigits.union(CharacterSet(charactersIn: "."))).joined()
 
@@ -225,7 +226,7 @@ class SelectedStationViewController: UIViewController {
             updateNextButtonState()
         }
     
-    func updateNextButtonState() {
+    func updateNextButtonState() { // 대여소를 출발지&도착지 모두 선택해야 다음으로 버튼이 활성화
            if departureStationLabel.text != "출발지를 설정해주세요" && arrivalStationLabel.text != "도착지를 설정해주세요" {
                nextButton.isEnabled = true
            } else {

@@ -20,7 +20,7 @@ struct BikeRecord {
     var startTime: Date
     var endTime: Date
     
-    func dictionaryRepresentation() -> [String: Any] {
+    func dictionaryRepresentation() -> [String: Any] { // 기록한 정보를 딕셔너리화
         return [
             "usageTime": usageTime,
             "distance": distance,

@@ -87,10 +87,9 @@ class BikeMeasurementViewController: UIViewController {
         }
 
         func setupStopwatchLabel() {
-//            stopwatchLabel.frame = CGRect(x: 0, y: 0, width: 200, height: 50)
             stopwatchLabel.textColor = .black
             stopwatchLabel.font = UIFont(name: "Jua-Regular", size: 40)
-            stopwatchLabel.font = UIFont.boldSystemFont(ofSize: 48) // 볼드 처리
+            stopwatchLabel.font = UIFont.boldSystemFont(ofSize: 48)
             stopwatchLabel.text = "00:00:00초"
             
             let parent = self.view!
@@ -199,7 +198,7 @@ class BikeMeasurementViewController: UIViewController {
                     self.startBikeStation.text = cleanStartLocation
                     self.endBikeStation.text = cleanEndLocation
                 } else {
-                    print("Document does not exist")
+                    print("목적지를 설정해주세요.")
                     self.startBikeStation.text = "출발지를 설정해주세요"
                     self.endBikeStation.text = "도착지를 설정해주세요"
                 }
@@ -209,10 +208,10 @@ class BikeMeasurementViewController: UIViewController {
         @objc func startButtonTapped() {
             startStopwatch()
             arrivedButton.isEnabled = true
-            departButton.isHidden = true // 출발하기 버튼 숨기기
+            departButton.isHidden = true
             navigationItem.hidesBackButton = true
             
-            startTime = Date()
+            startTime = Date() // 출발한 시각
         }
         
     @objc func stopButtonTapped() {
@@ -227,6 +226,8 @@ class BikeMeasurementViewController: UIViewController {
         
     }
 
+    // 목적지 도착 버튼 클릭 후 호출
+    // 설정한 경로 초기화하여 새롭게 경로 선택할 수 있게 함
     func resetBikeRecordInFirestore() {
         guard let user = Auth.auth().currentUser else {
             print("User not logged in.")
@@ -238,9 +239,9 @@ class BikeMeasurementViewController: UIViewController {
                          .collection("1").document("record")
         
         let defaultStartLocation = "출발지를 설정해주세요"
-            let defaultEndLocation = "도착지를 설정해주세요"
+        let defaultEndLocation = "도착지를 설정해주세요"
         let startTimestamp = Timestamp(date: Date())
-           let endTimestamp = Timestamp(date: Date())
+        let endTimestamp = Timestamp(date: Date())
         
         docRef.updateData([
                 "startLocation": defaultStartLocation,
@@ -252,9 +253,9 @@ class BikeMeasurementViewController: UIViewController {
       
             ]) { error in
                 if let error = error {
-                    print("Error updating document: \(error.localizedDescription)")
+                    print("초기화 실패")
                 } else {
-                    print("Document successfully updated")
+                    print("성공적으로 데이터가 초기화되었습니다.")
                 }
             }
         }
@@ -276,7 +277,7 @@ class BikeMeasurementViewController: UIViewController {
             let totalSeconds = Int(elapsedTime)
             let totalMinutes = totalSeconds / 60
             
-            let distance = (elapsedTime * 4.17) / 1000.0 // km
+            let distance = (elapsedTime * 4.17) / 1000.0
             let calories = Double(totalMinutes) * 5.8
             let carbonReduction = distance * 0.21
             
@@ -293,12 +294,12 @@ class BikeMeasurementViewController: UIViewController {
         
         func saveBikeRecordToFirebase(startTime: Date?, endTime: Date?) {
             guard let user = Auth.auth().currentUser else {
-                        print("User not logged in.")
+                        print("사용자가 로그인이 되어있지 않습니다.")
                         return
                     }
 
             guard let startTime = startTime, let endTime = endTime else {
-                    print("Start time or end time is nil.")
+                    print("변수에 nil 이 있습니다.")
                     return
                 }
             
@@ -311,11 +312,11 @@ class BikeMeasurementViewController: UIViewController {
             
             FirestoreManager.shared.saveBikeRecord(record, forUser: user.email ?? "unknown") { error in
                         if let error = error {
-                            print("Error saving bike record: \(error.localizedDescription)")
+                            print("자전거 기록에 실패하였습니다.")
                             return
                         }
-                        print("Bike record saved successfully!")
-                    print("record: \(record)")
+                        print("성공정으로 기록되었습니다.")
+                    //print("record: \(record)")
                     }
             }
         }

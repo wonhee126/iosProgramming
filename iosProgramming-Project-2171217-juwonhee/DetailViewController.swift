@@ -28,7 +28,7 @@ class DetailViewController: UIViewController {
             view.backgroundColor = UIColor(red: 0.851, green: 0.851, blue: 0.851, alpha: 1)
             view.layer.cornerRadius = 25.0
             return view
-        }() // 출발지 view
+        }()
     
         let greenView1: UIView = {
             let view = UIView()
@@ -66,9 +66,9 @@ class DetailViewController: UIViewController {
 
         override func viewDidLoad() {
             super.viewDidLoad()
-            setupNavigationBar()
-            setupUI()
-            updateUI()
+            setupNavigationBar() // 상단바
+            setupUI() // 데이터 출력 UI
+            updateUI() // 전체적인 출력 UI
         }
         
 
@@ -162,7 +162,7 @@ class DetailViewController: UIViewController {
            ])
        }
                 
-        func updateUI() {
+        func updateUI() { // 데이터 출력 UI
             guard let record = bikeRecord else {
                 print("자전거 기록이 없습니다.")
                 return
@@ -183,7 +183,7 @@ class DetailViewController: UIViewController {
             endTimeLabel.text = "\(dateFormatter.string(from: record.endTime))"
         }
     
-    func setupNavigationBar() {
+    func setupNavigationBar() { // 상단바
         self.navigationController?.navigationBar.barTintColor = UIColor(red: 148/255, green: 206/255, blue: 204/255, alpha: 1.0)
         self.navigationItem.title = ""
         

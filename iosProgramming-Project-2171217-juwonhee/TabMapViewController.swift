@@ -23,11 +23,11 @@ class TabMapViewController: UIViewController, CLLocationManagerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupNavigationBar()
-        setupMapView()
-        setupInfoView()
-        checkLocationAuthorizationStatus()
-        loadBikeStations()
+        setupNavigationBar() // 상단바
+        setupMapView() // 지도 뷰 설정 초기화
+        setupInfoView() // 자전거 대여소 정보 뷰 설정 초기화
+        checkLocationAuthorizationStatus() // 위치 권한 상태 확인
+        loadBikeStations() // 자전거 대여소 데이터 로드
 
     }
 
@@ -71,8 +71,6 @@ class TabMapViewController: UIViewController, CLLocationManagerDelegate {
 
     func setupMapView() {
         mapView.delegate = self
-        
-    
         mapView.mapType = .standard
         mapView.showsUserLocation = true
         
@@ -123,7 +121,7 @@ class TabMapViewController: UIViewController, CLLocationManagerDelegate {
     }
 
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("Failed to get user location: \(error)")
+        print("사용자 위치를 가져오는데 실패하였습니다.")
     }
 
     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
@@ -149,7 +147,7 @@ class TabMapViewController: UIViewController, CLLocationManagerDelegate {
     func loadBikeStations() {
         BikeStationLoader.loadMultipleBikeStations { [weak self] bikeStations in
             guard let self = self, let bikeStations = bikeStations else {
-                print("Failed to load bike data.")
+                print("정보를 가져오는데 실패하였습니다.")
                 return
             }
 
@@ -158,7 +156,7 @@ class TabMapViewController: UIViewController, CLLocationManagerDelegate {
                     let availableBikes = Int(station.parkingBikeTotCnt) ?? 0
                     let annotation = BikeStationAnnotation(
                         title: station.stationName,
-                        subtitle: station.stationId, // stationId를 subtitle로 사용
+                        subtitle: station.stationId,
                         coordinate: CLLocationCoordinate2D(latitude: station.stationLatitude,
                                                            longitude: station.stationLongitude),
                         availableBikes: availableBikes
@@ -174,18 +172,20 @@ extension TabMapViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         guard let annotation = view.annotation as? BikeStationAnnotation else { return }
         
-        // Update and show the info view with annotation details
+        // 선택된 자전거 대여소의 세부 정보를 infoView 에 업데이트
         infoView.update(stationId: annotation.subtitle ?? "", stationName: annotation.title ?? "", availableBikes: annotation.availableBikes)
-        infoView.isHidden = false
+        infoView.isHidden = false // 화면에 표시
         
-        if let tapView = view as? BikeStationAnnotationTapView {
-            tapView.checkIfFavoritedAndUpdateUI(bikeStation: annotation)
+        if let tapView = view as? BikeStationAnnotationTapView { // MapViewController 와 다른 점
+            // 자전거 대여소가 즐겨찾기인지 확인하고 UI를 업데이트
+            tapView.checkFavoritedAndUpdateUI(bikeStation: annotation)
         }
         
     }
     
+    // annotation 선택 해제 시 호출
     func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
-        infoView.isHidden = true
+        infoView.isHidden = true // 숨기기
     }
     
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {

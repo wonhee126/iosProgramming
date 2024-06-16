@@ -11,7 +11,6 @@ import FirebaseAuth
 
 class PrintRecordModalViewController: UIViewController {
     
-    // MARK: - Outlets
     @IBOutlet weak var usageTimeLabel: UILabel!
     @IBOutlet weak var carbonReductionLabel: UILabel!
     @IBOutlet weak var caloriesLabel: UILabel!

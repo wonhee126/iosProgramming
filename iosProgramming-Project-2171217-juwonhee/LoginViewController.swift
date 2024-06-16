@@ -114,7 +114,7 @@ class LoginViewController: UIViewController {
         ])
     }
     
-    @objc func loginButtonTapped(_ sender: UIButton) {
+    @objc func loginButtonTapped(_ sender: UIButton) { // 로그인 버튼 클릭 시 
         guard let email = emailTextField.text, let password = passwordTextField.text else {
             print("Email and Password are required")
             return
@@ -135,7 +135,7 @@ class LoginViewController: UIViewController {
         }
     }
 
-    @objc func signUpButtonTapped(_ sender: UIButton) {
+    @objc func signUpButtonTapped(_ sender: UIButton) { // 회원가입 버튼 클릭 시
         if let signupViewController = self.storyboard?.instantiateViewController(withIdentifier: "SignupViewController") as? SignupViewController {
             signupViewController.modalPresentationStyle = .fullScreen
             self.present(signupViewController, animated: true, completion: nil)

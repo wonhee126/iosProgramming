@@ -21,11 +21,14 @@ struct Location: Codable {
 
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        // 각 속성을 디코딩하여 초기화
         rackTotCnt = try container.decode(String.self, forKey: .rackTotCnt)
         stationName = try container.decode(String.self, forKey: .stationName)
         parkingBikeTotCnt = try container.decode(String.self, forKey: .parkingBikeTotCnt)
         shared = try container.decode(String.self, forKey: .shared)
 
+        // String으로 디코딩된 위도와 경도 -> Double로 변환
         let stationLatitudeString = try container.decode(String.self, forKey: .stationLatitude)
         let stationLongitudeString = try container.decode(String.self, forKey: .stationLongitude)
         stationLatitude = Double(stationLatitudeString) ?? 0.0
